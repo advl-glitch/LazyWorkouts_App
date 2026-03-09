@@ -1,0 +1,753 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: #F6F3FF;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, textarea, button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ===== LAYOUT ===== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px 16px 0 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  overflow: hidden;
+}
+
+/* ===== BOTTOM NAV ===== */
+.tab-row {
+  display: flex;
+  background: #E2DAFF;
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 14px;
+  color: #5F5B8A;
+  font-weight: 500;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab-button.active {
+  background: #FFFFFF;
+  color: #3B2F80;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ===== CARD ===== */
+.card {
+  flex: 1;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.card-scroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+/* ===== LOGO ===== */
+.logo-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.logo-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: #E2DAFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2D2558;
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: #7A739E;
+}
+
+/* ===== TEXT ===== */
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2D2558;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6E6A8B;
+  margin-bottom: 12px;
+}
+
+.section-header {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #403873;
+}
+
+/* ===== PRIMARY BIG BUTTON ===== */
+.primary-big-button {
+  background: #6C63FF;
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.primary-big-button-label {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  display: block;
+}
+
+.primary-big-button-sub {
+  color: #E2DAFF;
+  font-size: 13px;
+  margin-top: 2px;
+  display: block;
+}
+
+/* ===== BUTTON ROW ===== */
+.button-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.secondary-button {
+  flex: 1;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 10px 0;
+  text-align: center;
+  border: 1px solid #DDD3FF;
+  color: #3B2F80;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.outline-button {
+  border-radius: 12px;
+  border: 1px solid #6C63FF;
+  padding: 10px 12px;
+  text-align: center;
+  margin-bottom: 8px;
+  color: #3B2F80;
+  font-weight: 600;
+  font-size: 14px;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ===== EXERCISE ROW ===== */
+.exercise-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 6px 0;
+}
+
+.checkbox-wrapper {
+  padding-right: 8px;
+  padding-top: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid #B39DFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.checkbox.checked {
+  background: #6C63FF;
+  border-color: #6C63FF;
+}
+
+.checkbox-tick {
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.exercise-text-wrapper {
+  flex: 1;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.exercise-text {
+  font-size: 15px;
+  color: #443C71;
+}
+
+.exercise-text.done {
+  text-decoration: line-through;
+  color: #A19BBE;
+}
+
+.exercise-hint {
+  font-size: 11px;
+  color: #9C95C4;
+}
+
+.media-btn {
+  margin-left: 8px;
+  margin-top: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid #DDD3FF;
+  background: #F6F3FF;
+  font-size: 11px;
+  color: #4C4378;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.complete-button {
+  margin-top: 16px;
+  background: #6C63FF;
+  border-radius: 999px;
+  padding: 12px;
+  text-align: center;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.skip-button {
+  margin-top: 8px;
+  background: #E8E4FF;
+  border-radius: 999px;
+  padding: 10px;
+  text-align: center;
+  color: #3B2F80;
+  font-weight: 500;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.edit-exercises-button {
+  margin-top: 8px;
+  border-radius: 999px;
+  border: 1px solid #C2BAFF;
+  padding: 10px;
+  text-align: center;
+  color: #3B2F80;
+  font-weight: 500;
+  font-size: 14px;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ===== BACK BUTTON ===== */
+.workout-header-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 4px;
+}
+
+.back-button {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #E8E4FF;
+  color: #3B2F80;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== HISTORY ===== */
+.history-row {
+  padding: 8px 0;
+  border-bottom: 1px solid #EEE7FF;
+}
+
+.history-date {
+  font-size: 13px;
+  color: #8E88A8;
+}
+
+.history-name {
+  font-size: 15px;
+  color: #403873;
+  font-weight: 500;
+}
+
+/* ===== MANAGE / WORKOUTS TAB ===== */
+.manage-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #EEE7FF;
+}
+
+.manage-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.manage-name {
+  font-size: 15px;
+  color: #403873;
+  font-weight: 600;
+}
+
+.manage-meta {
+  font-size: 12px;
+  color: #8E88A8;
+}
+
+.manage-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.small-btn {
+  background: #E2DAFF;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #3B2F80;
+  border: none;
+  cursor: pointer;
+}
+
+.small-btn-outline {
+  border-radius: 8px;
+  padding: 4px 10px;
+  border: 1px solid #6C63FF;
+  background: none;
+  font-size: 12px;
+  color: #3B2F80;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-workout-button {
+  align-self: flex-start;
+  background: #F0ECFF;
+  border-radius: 999px;
+  padding: 6px 12px;
+  margin-top: 6px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #3B2F80;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.create-exercise-button {
+  margin-top: 10px;
+  border-radius: 14px;
+  border: 1px solid #B39DFF;
+  padding: 10px;
+  text-align: center;
+  background: #F8F6FF;
+  font-size: 14px;
+  color: #3B2F80;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+.delete-workouts-button {
+  margin-top: 12px;
+  border-radius: 14px;
+  border: 1px solid #B3261E;
+  padding: 10px;
+  text-align: center;
+  background: #FFF4F2;
+  font-size: 14px;
+  color: #B3261E;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ===== LIBRARY ===== */
+.library-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 6px 0;
+  border-bottom: 1px solid #EEE7FF;
+}
+
+.library-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 8px;
+  gap: 4px;
+}
+
+.library-muscles {
+  font-size: 11px;
+  color: #8E88A8;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-card {
+  max-height: 85%;
+  width: 100%;
+  max-width: 480px;
+  background: #FFFFFF;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.media-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.media-view-card {
+  width: 90%;
+  max-width: 440px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2D2558;
+  margin-bottom: 4px;
+}
+
+.modal-subtitle {
+  font-size: 13px;
+  color: #776FA1;
+  margin-bottom: 10px;
+}
+
+.modal-label {
+  font-size: 13px;
+  color: #4C4378;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.modal-input {
+  border: 1px solid #DDD3FF;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #2D2558;
+  background: #F8F6FF;
+  width: 100%;
+  outline: none;
+}
+
+.modal-input:focus {
+  border-color: #6C63FF;
+}
+
+.modal-input-multiline {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.modal-button {
+  margin-top: 16px;
+  background: #6C63FF;
+  border-radius: 999px;
+  padding: 12px;
+  text-align: center;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.modal-button.cancel {
+  margin-top: 8px;
+  background: #E2DAFF;
+  color: #3B2F80;
+}
+
+.modal-button.danger {
+  background: #B3261E;
+}
+
+.modal-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== VISUAL / MEDIA ===== */
+.visual-button {
+  margin-top: 12px;
+  border-radius: 999px;
+  border: 1px solid #DDD3FF;
+  padding: 8px 12px;
+  text-align: center;
+  background: #F8F6FF;
+  font-size: 12px;
+  color: #4C4378;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+}
+
+.visual-input {
+  border: 1px solid #DDD3FF;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 13px;
+  color: #2D2558;
+  background: #F8F6FF;
+  width: 100%;
+  outline: none;
+}
+
+.visual-input:focus {
+  border-color: #6C63FF;
+}
+
+.media-hint {
+  font-size: 11px;
+  color: #8E88A8;
+  margin-top: 4px;
+}
+
+.media-preview-box {
+  height: 220px;
+  border-radius: 12px;
+  border: 1px solid #DDD3FF;
+  background: #F8F6FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.media-preview-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.media-placeholder {
+  font-size: 13px;
+  color: #9C95C4;
+  text-align: center;
+  padding: 0 16px;
+}
+
+/* ===== CATEGORY ITEM ===== */
+.category-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #EEE7FF;
+  cursor: pointer;
+}
+
+.category-item.selected {
+  background: #F0ECFF;
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+.category-item-name {
+  font-size: 14px;
+  color: #403873;
+  font-weight: 600;
+}
+
+.category-item.selected .category-item-name {
+  color: #3B2F80;
+}
+
+.category-item-meta {
+  font-size: 12px;
+  color: #8E88A8;
+}
+
+/* ===== EDIT ROW ===== */
+.edit-row, .add-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #EEE7FF;
+}
+
+.edit-exercise-name {
+  font-size: 14px;
+  color: #403873;
+  font-weight: 500;
+}
+
+.edit-exercise-name.removed {
+  text-decoration: line-through;
+  color: #C3BCD8;
+}
+
+.edit-exercise-meta {
+  font-size: 11px;
+  color: #8E88A8;
+}
+
+/* ===== CHIPS ===== */
+.type-row {
+  display: flex;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+.type-chip {
+  border-radius: 999px;
+  border: 1px solid #DDD3FF;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #4C4378;
+  background: none;
+  cursor: pointer;
+}
+
+.type-chip.active {
+  background: #6C63FF;
+  border-color: #6C63FF;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.muscle-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.muscle-chip {
+  border-radius: 999px;
+  border: 1px solid #DDD3FF;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #4C4378;
+  background: none;
+  cursor: pointer;
+}
+
+.muscle-chip.active {
+  background: #E2DAFF;
+  border-color: #6C63FF;
+  color: #3B2F80;
+  font-weight: 600;
+}
+
+/* ===== SCROLLABLE LIST IN MODAL ===== */
+.modal-list {
+  max-height: 260px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.modal-list-short {
+  max-height: 200px;
+}
+
+.modal-list-xs {
+  max-height: 160px;
+}

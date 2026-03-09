@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="32" fill="#6C63FF"/>
+  <g transform="translate(10, 8) scale(0.7)">
+    <!-- body -->
+    <ellipse cx="32" cy="48" rx="14" ry="10" fill="#A5D6A7"/>
+    <!-- tail -->
+    <path d="M18 48 Q6 40 4 28" stroke="#81C784" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- neck -->
+    <path d="M38 42 Q44 30 42 20" stroke="#A5D6A7" stroke-width="8" fill="none" stroke-linecap="round"/>
+    <!-- head -->
+    <ellipse cx="44" cy="16" rx="10" ry="8" fill="#A5D6A7"/>
+    <!-- eye -->
+    <circle cx="48" cy="14" r="2.5" fill="#2D2558"/>
+    <!-- mouth -->
+    <path d="M50 19 Q54 20 56 18" stroke="#2D2558" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- legs -->
+    <line x1="24" y1="56" x2="22" y2="64" stroke="#81C784" stroke-width="3" stroke-linecap="round"/>
+    <line x1="40" y1="56" x2="42" y2="64" stroke="#81C784" stroke-width="3" stroke-linecap="round"/>
+    <!-- zzz -->
+    <text x="52" y="8" fill="#E2DAFF" font-size="8" font-weight="bold" font-family="sans-serif">z</text>
+    <text x="56" y="4" fill="#E2DAFF" font-size="6" font-weight="bold" font-family="sans-serif">z</text>
+  </g>
+</svg>
