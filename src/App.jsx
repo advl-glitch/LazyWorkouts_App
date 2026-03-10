@@ -1,5 +1,24 @@
 import React, { useState, useEffect, useMemo } from "react";
 
+// ===== THEME (manual light/dark toggle) =====
+function useTheme() {
+  const [mode, setMode] = useState(() => {
+    try { return localStorage.getItem("@themeMode") || "light"; } catch { return "light"; }
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", mode);
+  }, [mode]);
+
+  const toggle = () => {
+    const next = mode === "light" ? "dark" : "light";
+    setMode(next);
+    try { localStorage.setItem("@themeMode", next); } catch {}
+  };
+
+  return { mode, toggle };
+}
+
 // ===== STORAGE SHIM (localStorage drop-in for AsyncStorage) =====
 const storage = {
   getItem(key) {
@@ -196,6 +215,7 @@ const getExerciseKey = (workoutId, exerciseName) =>
   `${workoutId}::${exerciseName}`;
 
 export default function App() {
+  const theme = useTheme();
   const [tab, setTab] = useState("home");
   const [activeScreen, setActiveScreen] = useState("tab");
   const [workoutOriginTab, setWorkoutOriginTab] = useState("home");
@@ -661,6 +681,7 @@ export default function App() {
           onPrimaryPress={handleHomePrimaryPress} onPickCategory={onPickCategory}
           onGoToWorkouts={onGoToWorkouts} onOpenLibrary={() => setActiveScreen("library")}
           onCreateExercise={() => setCreateExerciseVisible(true)}
+          themeMode={theme.mode} onToggleTheme={theme.toggle}
         />
       ) : tab === "history" ? (
         <HistoryView history={history} />
@@ -749,7 +770,7 @@ export default function App() {
 }
 
 /* ===== HOME ===== */
-function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategory, onGoToWorkouts, onOpenLibrary, onCreateExercise }) {
+function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategory, onGoToWorkouts, onOpenLibrary, onCreateExercise, themeMode, onToggleTheme }) {
   const labelTitle = hasIncomplete ? "Current workout" : "Next up";
   const buttonLabel = hasIncomplete ? "Continue unfinished workout" : "Start next workout";
   const subLabel = primaryWorkout ? primaryWorkout.name : "No workouts defined";
@@ -758,10 +779,13 @@ function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategor
     <div className="card">
       <div className="logo-row">
         <div className="logo-circle">{"\uD83D\uDECB\uFE0F"}</div>
-        <div>
+        <div style={{ flex: 1 }}>
           <div className="app-title">Lazy Workouts</div>
           <div className="app-subtitle">Strong, but make it comfy.</div>
         </div>
+        <button className="theme-toggle" onClick={onToggleTheme} title={themeMode === "light" ? "Switch to dark mode" : "Switch to light mode"}>
+          {themeMode === "light" ? "\u2600\uFE0F" : "\uD83C\uDF19"}
+        </button>
       </div>
       <div className="card-scroll">
         <div className="section-header">{labelTitle}</div>
