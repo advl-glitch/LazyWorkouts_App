@@ -1062,71 +1062,9 @@ export default function App() {
 }
 
 /* ===== SVG ICONS ===== */
+const dinoImgUrl = new URL("/dino-raw.png", import.meta.url).href;
 const DinoIcon = () => (
-  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Tail - thick, extends right */}
-    <path d="M38 40Q46 38 54 32Q56 30 58 32Q54 36 48 42Q42 46 38 44Z" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8"/>
-    {/* Tail spikes */}
-    <path d="M50 34L52 30L52 35" fill="#2D8C3C"/>
-    <path d="M46 37L48 33L48 38" fill="#2D8C3C"/>
-    {/* Back leg (far) */}
-    <path d="M30 46L28 54L26 56L24 56L26 54L27 52L30 46" fill="#5AAF59" stroke="#2D8C3C" strokeWidth="0.5"/>
-    {/* Back leg (near) */}
-    <path d="M34 46L33 54L31 57L28 57L31 55L32 52L34 46" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.5"/>
-    {/* Toes */}
-    <circle cx="24" cy="56.5" r="1" fill="#5AAF59"/>
-    <circle cx="26" cy="56.8" r="1" fill="#5AAF59"/>
-    <circle cx="28.5" cy="57.5" r="1" fill="#6ABF69"/>
-    <circle cx="30.5" cy="57.8" r="1" fill="#6ABF69"/>
-    {/* Body - upright oval, slightly leaning forward */}
-    <ellipse cx="30" cy="36" rx="11" ry="14" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8"/>
-    {/* Belly */}
-    <ellipse cx="28" cy="40" rx="7" ry="9" fill="#C8E6C9"/>
-    {/* Body spots */}
-    <circle cx="35" cy="30" r="2" fill="#4A9E4E" opacity="0.4"/>
-    <circle cx="37" cy="37" r="1.5" fill="#4A9E4E" opacity="0.3"/>
-    {/* Back spikes */}
-    <path d="M36 22L39 18L37 23" fill="#2D8C3C"/>
-    <path d="M37 26L40 22L38 27" fill="#2D8C3C"/>
-    <path d="M38 31L41 27L39 32" fill="#2D8C3C"/>
-    <path d="M38 36L41 32L39 37" fill="#2D8C3C"/>
-    {/* Neck */}
-    <path d="M26 24Q24 18 22 14Q20 12 22 10" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8"/>
-    <path d="M30 22Q28 16 26 12Q24 10 26 8" fill="#6ABF69"/>
-    {/* Head - big flat T-Rex snout facing left */}
-    <path d="M8 6Q6 2 10 1L26 1Q28 1 28 4L28 14Q28 17 26 17L10 17Q6 17 6 13L6 10Z" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8" strokeLinejoin="round"/>
-    {/* Snout top ridge */}
-    <path d="M8 4Q10 2 14 2" stroke="#4A9E4E" strokeWidth="0.8" fill="none"/>
-    {/* Nostril */}
-    <circle cx="10" cy="7" r="1.2" fill="#2D8C3C"/>
-    {/* Eye white */}
-    <circle cx="20" cy="7" r="4" fill="white" stroke="#2D8C3C" strokeWidth="0.5"/>
-    {/* Pupil */}
-    <circle cx="19" cy="7" r="2.2" fill="#1A1A1A"/>
-    {/* Eye shine */}
-    <circle cx="18" cy="6" r="0.9" fill="white"/>
-    {/* Smile / mouth line */}
-    <path d="M8 13Q12 15 18 14" stroke="#2D8C3C" strokeWidth="0.8" fill="none" strokeLinecap="round"/>
-    {/* Teeth */}
-    <path d="M10 13L11 15.5L12 13" fill="white" stroke="#2D8C3C" strokeWidth="0.3"/>
-    <path d="M14 13.5L15 16L16 13.5" fill="white" stroke="#2D8C3C" strokeWidth="0.3"/>
-    {/* Red headband */}
-    <path d="M7 4Q14 0 26 2Q28 2.5 28 4" stroke="#E53935" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-    {/* Headband tails hanging */}
-    <path d="M7 4L4 7" stroke="#E53935" strokeWidth="2" strokeLinecap="round"/>
-    <path d="M7 4L5 8" stroke="#C62828" strokeWidth="1.5" strokeLinecap="round"/>
-    {/* Tiny T-Rex arm */}
-    <path d="M24 28Q20 30 18 29" stroke="#6ABF69" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-    <path d="M18 29L17 28M18 29L17 30" stroke="#4A9E4E" strokeWidth="1" strokeLinecap="round"/>
-    {/* Barbell */}
-    <line x1="13" y1="27" x2="13" y2="33" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
-    <rect x="10" y="26" width="6" height="2.5" rx="0.8" fill="#666"/>
-    <rect x="11" y="26.3" width="4" height="1.8" rx="0.5" fill="#888"/>
-    <rect x="10" y="31.5" width="6" height="2.5" rx="0.8" fill="#666"/>
-    <rect x="11" y="31.8" width="4" height="1.8" rx="0.5" fill="#888"/>
-    {/* Hand on barbell */}
-    <circle cx="15" cy="29.5" r="1.8" fill="#6ABF69" stroke="#4A9E4E" strokeWidth="0.5"/>
-  </svg>
+  <img src={dinoImgUrl} alt="Lazy Workouts dino" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
 );
 
 const IconHome = () => (
