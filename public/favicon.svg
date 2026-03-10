@@ -1,23 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <circle cx="32" cy="32" r="32" fill="#6C63FF"/>
-  <g transform="translate(10, 8) scale(0.7)">
-    <!-- body -->
-    <ellipse cx="32" cy="48" rx="14" ry="10" fill="#A5D6A7"/>
-    <!-- tail -->
-    <path d="M18 48 Q6 40 4 28" stroke="#81C784" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <!-- neck -->
-    <path d="M38 42 Q44 30 42 20" stroke="#A5D6A7" stroke-width="8" fill="none" stroke-linecap="round"/>
-    <!-- head -->
-    <ellipse cx="44" cy="16" rx="10" ry="8" fill="#A5D6A7"/>
-    <!-- eye -->
-    <circle cx="48" cy="14" r="2.5" fill="#2D2558"/>
-    <!-- mouth -->
-    <path d="M50 19 Q54 20 56 18" stroke="#2D2558" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    <!-- legs -->
-    <line x1="24" y1="56" x2="22" y2="64" stroke="#81C784" stroke-width="3" stroke-linecap="round"/>
-    <line x1="40" y1="56" x2="42" y2="64" stroke="#81C784" stroke-width="3" stroke-linecap="round"/>
-    <!-- zzz -->
-    <text x="52" y="8" fill="#E2DAFF" font-size="8" font-weight="bold" font-family="sans-serif">z</text>
-    <text x="56" y="4" fill="#E2DAFF" font-size="6" font-weight="bold" font-family="sans-serif">z</text>
+  <g transform="translate(2, 4)">
+    <!-- Tail -->
+    <path d="M14 38Q6 34 4 26Q6 28 9 28Q7 24 8 20" stroke="#6ABF69" stroke-width="3.5" fill="#7BC67A" stroke-linecap="round"/>
+    <!-- Body -->
+    <ellipse cx="26" cy="38" rx="13" ry="11" fill="#7BC67A"/>
+    <!-- Body spots -->
+    <circle cx="22" cy="34" r="2.2" fill="#6ABF69" opacity="0.5"/>
+    <circle cx="30" cy="38" r="1.8" fill="#6ABF69" opacity="0.4"/>
+    <!-- Neck -->
+    <path d="M34 30Q38 20 36 10" stroke="#7BC67A" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <!-- Head -->
+    <ellipse cx="38" cy="10" rx="10" ry="8.5" fill="#7BC67A"/>
+    <!-- Snout -->
+    <ellipse cx="46" cy="12" rx="4.5" ry="3.5" fill="#7BC67A"/>
+    <!-- Mouth -->
+    <path d="M44 15Q48 16 50 14" stroke="#4A8C49" stroke-width="1" fill="none" stroke-linecap="round"/>
+    <!-- Eye white -->
+    <circle cx="40" cy="8" r="4" fill="white"/>
+    <!-- Pupil -->
+    <circle cx="41" cy="8" r="2.3" fill="#2D2D2D"/>
+    <!-- Eye shine -->
+    <circle cx="42" cy="7" r="0.9" fill="white"/>
+    <!-- Nostril -->
+    <circle cx="48" cy="11" r="0.7" fill="#4A8C49"/>
+    <!-- Spikes -->
+    <path d="M30 6L32 2L34 7" fill="#6ABF69"/>
+    <path d="M34 4L36 0L38 5" fill="#6ABF69"/>
+    <path d="M32 28L34 24L36 29" fill="#6ABF69"/>
+    <!-- Red headband -->
+    <path d="M28 7Q33 3 43 4Q48 5 50 8" stroke="#E53935" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <!-- Headband tails -->
+    <path d="M28 7L24 4L26 8" fill="#E53935" stroke="#E53935" stroke-width="0.5" stroke-linejoin="round"/>
+    <path d="M28 7L25 9L27 6" fill="#C62828" stroke="#C62828" stroke-width="0.5" stroke-linejoin="round"/>
+    <!-- Arm -->
+    <path d="M32 30Q34 32 36 31" stroke="#6ABF69" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Barbell bar -->
+    <line x1="34" y1="28" x2="34" y2="36" stroke="#999" stroke-width="1.3" stroke-linecap="round"/>
+    <!-- Barbell weights -->
+    <ellipse cx="34" cy="27" rx="2.8" ry="1.6" fill="#888"/>
+    <ellipse cx="34" cy="27" rx="2" ry="1.1" fill="#AAA"/>
+    <ellipse cx="34" cy="37" rx="2.8" ry="1.6" fill="#888"/>
+    <ellipse cx="34" cy="37" rx="2" ry="1.1" fill="#AAA"/>
+    <!-- Hand -->
+    <circle cx="34" cy="32" r="1.4" fill="#6ABF69"/>
+    <!-- Legs -->
+    <path d="M18 47Q16 52 14 53Q13 54 16 54Q18 54 19 52" fill="#7BC67A"/>
+    <path d="M30 47Q32 52 34 53Q35 54 32 54Q30 54 29 52" fill="#7BC67A"/>
   </g>
 </svg>

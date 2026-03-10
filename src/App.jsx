@@ -781,17 +781,60 @@ export default function App() {
 
 /* ===== SVG ICONS ===== */
 const DinoIcon = () => (
-  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="20" cy="28" rx="10" ry="7" fill="#A5D6A7"/>
-    <path d="M12 28Q4 22 3 14" stroke="#81C784" strokeWidth="3" fill="none" strokeLinecap="round"/>
-    <path d="M25 23Q29 15 28 9" stroke="#A5D6A7" strokeWidth="5.5" fill="none" strokeLinecap="round"/>
-    <ellipse cx="30" cy="7" rx="7" ry="5.5" fill="#A5D6A7"/>
-    <circle cx="33" cy="5.5" r="1.8" fill="white"/>
-    <path d="M34 9Q37 10 38 8" stroke="white" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
-    <line x1="14" y1="33" x2="12" y2="39" stroke="#81C784" strokeWidth="2.5" strokeLinecap="round"/>
-    <line x1="26" y1="33" x2="28" y2="39" stroke="#81C784" strokeWidth="2.5" strokeLinecap="round"/>
-    <text x="34" y="3" fill="white" fontSize="5" fontWeight="bold">z</text>
-    <text x="37" y="0" fill="white" fontSize="4" fontWeight="bold">z</text>
+  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Tail */}
+    <path d="M14 38Q6 34 4 26Q6 28 9 28Q7 24 8 20" stroke="#6ABF69" strokeWidth="4" fill="#7BC67A" strokeLinecap="round"/>
+    {/* Body */}
+    <ellipse cx="26" cy="38" rx="14" ry="12" fill="#7BC67A"/>
+    {/* Body spots */}
+    <circle cx="22" cy="34" r="2.5" fill="#6ABF69" opacity="0.5"/>
+    <circle cx="30" cy="38" r="2" fill="#6ABF69" opacity="0.4"/>
+    {/* Neck */}
+    <path d="M34 30Q38 20 36 10" stroke="#7BC67A" strokeWidth="10" fill="none" strokeLinecap="round"/>
+    {/* Head */}
+    <ellipse cx="38" cy="10" rx="11" ry="9" fill="#7BC67A"/>
+    {/* Snout bump */}
+    <ellipse cx="46" cy="12" rx="5" ry="4" fill="#7BC67A"/>
+    {/* Mouth line */}
+    <path d="M44 15Q48 16 50 14" stroke="#4A8C49" strokeWidth="1" fill="none" strokeLinecap="round"/>
+    {/* Eye white */}
+    <circle cx="40" cy="8" r="4.5" fill="white"/>
+    {/* Eye pupil */}
+    <circle cx="41" cy="8" r="2.5" fill="#2D2D2D"/>
+    {/* Eye shine */}
+    <circle cx="42" cy="7" r="1" fill="white"/>
+    {/* Nostril */}
+    <circle cx="48" cy="11" r="0.8" fill="#4A8C49"/>
+    {/* Back spikes */}
+    <path d="M30 6L32 2L34 7" fill="#6ABF69"/>
+    <path d="M34 4L36 0L38 5" fill="#6ABF69"/>
+    <path d="M32 28L34 24L36 29" fill="#6ABF69"/>
+    <path d="M30 32L32 28L34 33" fill="#6ABF69"/>
+    {/* Red headband */}
+    <path d="M28 7Q33 3 43 4Q48 5 50 8" stroke="#E53935" strokeWidth="3" fill="none" strokeLinecap="round"/>
+    {/* Headband tail flap */}
+    <path d="M28 7L24 4L26 8" fill="#E53935" stroke="#E53935" strokeWidth="0.5" strokeLinejoin="round"/>
+    <path d="M28 7L25 9L27 6" fill="#C62828" stroke="#C62828" strokeWidth="0.5" strokeLinejoin="round"/>
+    {/* Tiny arms */}
+    <path d="M32 30Q34 32 36 31" stroke="#6ABF69" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    {/* Barbell - bar */}
+    <line x1="34" y1="28" x2="34" y2="36" stroke="#666" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Barbell - top weight */}
+    <ellipse cx="34" cy="27" rx="3" ry="1.8" fill="#555"/>
+    <ellipse cx="34" cy="27" rx="2.2" ry="1.3" fill="#777"/>
+    {/* Barbell - bottom weight */}
+    <ellipse cx="34" cy="37" rx="3" ry="1.8" fill="#555"/>
+    <ellipse cx="34" cy="37" rx="2.2" ry="1.3" fill="#777"/>
+    {/* Hand grip */}
+    <circle cx="34" cy="32" r="1.5" fill="#6ABF69" stroke="#5AAF59" strokeWidth="0.5"/>
+    {/* Legs */}
+    <path d="M18 47Q16 52 14 54Q13 55 16 55Q18 55 19 53" fill="#7BC67A"/>
+    <path d="M30 47Q32 52 34 54Q35 55 32 55Q30 55 29 53" fill="#7BC67A"/>
+    {/* Toes */}
+    <circle cx="14" cy="55" r="1" fill="#6ABF69"/>
+    <circle cx="16" cy="55.5" r="1" fill="#6ABF69"/>
+    <circle cx="32" cy="55.5" r="1" fill="#6ABF69"/>
+    <circle cx="34" cy="55" r="1" fill="#6ABF69"/>
   </svg>
 );
 
