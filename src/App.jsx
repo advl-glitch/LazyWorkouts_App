@@ -32,6 +32,76 @@ const storage = {
   },
 };
 
+// ===== EXERCISE GIF LOOKUP (ExerciseDB API — free, no key) =====
+const GIF_CACHE_KEY = "@exerciseGifCache";
+let gifCache = null;
+function getGifCache() {
+  if (gifCache) return gifCache;
+  try { gifCache = JSON.parse(localStorage.getItem(GIF_CACHE_KEY)) || {}; } catch { gifCache = {}; }
+  return gifCache;
+}
+function saveGifCache(name, url) {
+  const cache = getGifCache();
+  cache[name.toLowerCase()] = url;
+  gifCache = cache;
+  try { localStorage.setItem(GIF_CACHE_KEY, JSON.stringify(cache)); } catch {}
+}
+
+async function fetchExerciseGif(exerciseName) {
+  // Strip set/rep info to get clean name for search
+  const clean = exerciseName.replace(/\s*\d+[\u00d7x×]\s*\d+[-\u2013]\d+.*$/i, "")
+    .replace(/\s*@\s*\d+.*$/i, "")
+    .replace(/\s*3[\u00d7x×]\s*$/i, "")
+    .replace(/\s*\(.*\)\s*$/g, "")
+    .trim();
+
+  const cacheKey = clean.toLowerCase();
+  const cached = getGifCache()[cacheKey];
+  if (cached) return cached;
+  if (cached === null) return null; // previously searched, not found
+
+  try {
+    const resp = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises?search=${encodeURIComponent(clean)}&limit=5`);
+    if (!resp.ok) { saveGifCache(clean, null); return null; }
+    const json = await resp.json();
+    const results = json.data || [];
+    if (results.length > 0 && results[0].gifUrl) {
+      const url = results[0].gifUrl;
+      saveGifCache(clean, url);
+      return url;
+    }
+    saveGifCache(clean, null);
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function useExerciseGif(exerciseName) {
+  const [gifUrl, setGifUrl] = useState(() => {
+    const cached = getGifCache()[
+      exerciseName.replace(/\s*\d+[\u00d7x×]\s*\d+[-\u2013]\d+.*$/i, "")
+        .replace(/\s*@\s*\d+.*$/i, "")
+        .replace(/\s*3[\u00d7x×]\s*$/i, "")
+        .replace(/\s*\(.*\)\s*$/g, "")
+        .trim().toLowerCase()
+    ];
+    return cached || null;
+  });
+  const [loading, setLoading] = useState(false);
+
+  const load = () => {
+    if (gifUrl || loading) return;
+    setLoading(true);
+    fetchExerciseGif(exerciseName).then(url => {
+      if (url) setGifUrl(url);
+      setLoading(false);
+    });
+  };
+
+  return { gifUrl, loading, load };
+}
+
 // ===== BASE WORKOUT TEMPLATES =====
 const WORKOUT_DAYS = [
   {
@@ -1442,6 +1512,37 @@ function ExerciseLibraryView({ exerciseOptions, onBack, onEditExercise, onDelete
 }
 
 /* ===== EXERCISE DETAIL MODAL ===== */
+function ExerciseGifPreview({ exerciseName }) {
+  const { gifUrl, loading, load } = useExerciseGif(exerciseName);
+  const [show, setShow] = useState(false);
+
+  const handleToggle = () => {
+    if (!show) { load(); setShow(true); }
+    else setShow(false);
+  };
+
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <button className="visual-button" onClick={handleToggle} style={{ marginTop: 8, marginBottom: 0 }}>
+        {show ? "Hide form demo" : "Show form demo"}
+      </button>
+      {show && (
+        <div style={{ marginTop: 8 }}>
+          {loading && <div style={{ textAlign: "center", padding: 16, color: "var(--text-muted)", fontSize: 13 }}>Loading...</div>}
+          {gifUrl && (
+            <div className="media-preview-box" style={{ height: "auto", maxHeight: 280 }}>
+              <img src={gifUrl} alt={`${exerciseName} demo`} style={{ width: "100%", borderRadius: 12 }} />
+            </div>
+          )}
+          {!loading && !gifUrl && (
+            <div style={{ textAlign: "center", padding: 12, color: "var(--text-faint)", fontSize: 13 }}>No demo found for this exercise</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ExerciseModal({ selected, progress, labels, media, onChange, onChangeLabel, onChangeMedia, onClose }) {
   const [showMediaInput, setShowMediaInput] = useState(false);
   const { workoutId, exerciseName } = selected;
@@ -1451,7 +1552,7 @@ function ExerciseModal({ selected, progress, labels, media, onChange, onChangeLa
   const displayName = labelEntry && labelEntry.label && labelEntry.label.trim() ? labelEntry.label.trim() : exerciseName;
   const mediaEntry = media ? media[key] : null;
   const mediaUrl = mediaEntry?.url || "";
-  const mediaButtonLabel = mediaUrl ? "Change / remove visual example" : "Add a visual example of this exercise";
+  const mediaButtonLabel = mediaUrl ? "Change / remove custom visual" : "Add a custom visual";
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -1459,6 +1560,8 @@ function ExerciseModal({ selected, progress, labels, media, onChange, onChangeLa
         <div className="modal-handle" />
         <div className="modal-title">{displayName}</div>
         <div className="modal-subtitle">Update your current numbers</div>
+
+        <ExerciseGifPreview exerciseName={exerciseName} />
 
         <div className="modal-label">Exercise name</div>
         <input className="modal-input" value={displayName} onChange={(e) => onChangeLabel(workoutId, exerciseName, e.target.value)} placeholder={exerciseName} />
@@ -1473,9 +1576,9 @@ function ExerciseModal({ selected, progress, labels, media, onChange, onChangeLa
 
         {showMediaInput && (
           <div style={{ marginTop: 6 }}>
-            <div className="modal-label">Visual URL (image or video)</div>
+            <div className="modal-label">Custom visual URL</div>
             <input className="visual-input" value={mediaUrl} onChange={(e) => onChangeMedia(workoutId, exerciseName, e.target.value)} placeholder="https://example.com/image-or-video" />
-            <div className="media-hint">Image links will show inside the app. Other links open in your browser. Clear the field to remove it.</div>
+            <div className="media-hint">Override the auto demo with your own image or video link.</div>
           </div>
         )}
 
