@@ -653,9 +653,18 @@ export default function App() {
     <div className="app-container">
       {activeScreen === "tab" && (
         <div className="tab-row">
-          <button className={`tab-button ${tab === "home" ? "active" : ""}`} onClick={() => setTab("home")}>Home</button>
-          <button className={`tab-button ${tab === "workouts" ? "active" : ""}`} onClick={() => setTab("workouts")}>Workouts</button>
-          <button className={`tab-button ${tab === "history" ? "active" : ""}`} onClick={() => setTab("history")}>History</button>
+          <button className={`tab-button ${tab === "home" ? "active" : ""}`} onClick={() => setTab("home")}>
+            <IconHome />
+            <span>Home</span>
+          </button>
+          <button className={`tab-button ${tab === "workouts" ? "active" : ""}`} onClick={() => setTab("workouts")}>
+            <IconDumbbell />
+            <span>Workouts</span>
+          </button>
+          <button className={`tab-button ${tab === "history" ? "active" : ""}`} onClick={() => setTab("history")}>
+            <IconClock />
+            <span>History</span>
+          </button>
         </div>
       )}
 
@@ -682,9 +691,10 @@ export default function App() {
           onGoToWorkouts={onGoToWorkouts} onOpenLibrary={() => setActiveScreen("library")}
           onCreateExercise={() => setCreateExerciseVisible(true)}
           themeMode={theme.mode} onToggleTheme={theme.toggle}
+          history={history}
         />
       ) : tab === "history" ? (
-        <HistoryView history={history} />
+        <HistoryView history={history} workouts={orderedWorkouts} />
       ) : (
         <WorkoutsView
           workouts={orderedWorkouts} onMoveWorkout={moveWorkout} onOpenWorkout={jumpToWorkout}
@@ -769,16 +779,109 @@ export default function App() {
   );
 }
 
+/* ===== SVG ICONS ===== */
+const DinoIcon = () => (
+  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="20" cy="28" rx="10" ry="7" fill="#A5D6A7"/>
+    <path d="M12 28Q4 22 3 14" stroke="#81C784" strokeWidth="3" fill="none" strokeLinecap="round"/>
+    <path d="M25 23Q29 15 28 9" stroke="#A5D6A7" strokeWidth="5.5" fill="none" strokeLinecap="round"/>
+    <ellipse cx="30" cy="7" rx="7" ry="5.5" fill="#A5D6A7"/>
+    <circle cx="33" cy="5.5" r="1.8" fill="white"/>
+    <path d="M34 9Q37 10 38 8" stroke="white" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+    <line x1="14" y1="33" x2="12" y2="39" stroke="#81C784" strokeWidth="2.5" strokeLinecap="round"/>
+    <line x1="26" y1="33" x2="28" y2="39" stroke="#81C784" strokeWidth="2.5" strokeLinecap="round"/>
+    <text x="34" y="3" fill="white" fontSize="5" fontWeight="bold">z</text>
+    <text x="37" y="0" fill="white" fontSize="4" fontWeight="bold">z</text>
+  </svg>
+);
+
+const IconHome = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+    <polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+);
+
+const IconDumbbell = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6.5 6.5h11M6.5 17.5h11"/>
+    <rect x="2" y="5" width="4.5" height="14" rx="1.5"/>
+    <rect x="17.5" y="5" width="4.5" height="14" rx="1.5"/>
+    <line x1="12" y1="5" x2="12" y2="19"/>
+  </svg>
+);
+
+const IconClock = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <polyline points="12 6 12 12 16 14"/>
+  </svg>
+);
+
+const IconChevron = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="9 18 15 12 9 6"/>
+  </svg>
+);
+
+const IconList = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="8" y1="6" x2="21" y2="6"/>
+    <line x1="8" y1="12" x2="21" y2="12"/>
+    <line x1="8" y1="18" x2="21" y2="18"/>
+    <line x1="3" y1="6" x2="3.01" y2="6"/>
+    <line x1="3" y1="12" x2="3.01" y2="12"/>
+    <line x1="3" y1="18" x2="3.01" y2="18"/>
+  </svg>
+);
+
+const IconBook = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+  </svg>
+);
+
+const IconPlus = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="12" y1="5" x2="12" y2="19"/>
+    <line x1="5" y1="12" x2="19" y2="12"/>
+  </svg>
+);
+
 /* ===== HOME ===== */
-function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategory, onGoToWorkouts, onOpenLibrary, onCreateExercise, themeMode, onToggleTheme }) {
+function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategory, onGoToWorkouts, onOpenLibrary, onCreateExercise, themeMode, onToggleTheme, history }) {
   const labelTitle = hasIncomplete ? "Current workout" : "Next up";
   const buttonLabel = hasIncomplete ? "Continue unfinished workout" : "Start next workout";
   const subLabel = primaryWorkout ? primaryWorkout.name : "No workouts defined";
 
+  const totalWorkouts = history.length;
+  const streak = (() => {
+    if (!history.length) return 0;
+    let count = 0;
+    const today = new Date();
+    for (let i = 0; i < 60; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const dateStr = d.toISOString().slice(0, 10);
+      if (history.some(h => h.date === dateStr)) count++;
+      else if (i > 0) break;
+    }
+    return count;
+  })();
+  const thisWeek = (() => {
+    const now = new Date();
+    const day = now.getDay();
+    const start = new Date(now);
+    start.setDate(now.getDate() - day);
+    const startStr = start.toISOString().slice(0, 10);
+    return history.filter(h => h.date >= startStr).length;
+  })();
+
   return (
     <div className="card">
       <div className="logo-row">
-        <div className="logo-circle">{"\uD83D\uDECB\uFE0F"}</div>
+        <div className="logo-circle"><DinoIcon /></div>
         <div style={{ flex: 1 }}>
           <div className="app-title">Lazy Workouts</div>
           <div className="app-subtitle">Strong, but make it comfy.</div>
@@ -787,26 +890,54 @@ function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategor
           {themeMode === "light" ? "\u2600\uFE0F" : "\uD83C\uDF19"}
         </button>
       </div>
+
+      <div className="stats-row">
+        <div className="stat-card">
+          <div className="stat-value">{totalWorkouts}</div>
+          <div className="stat-label">Total</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value streak">{streak}</div>
+          <div className="stat-label">Streak</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{thisWeek}</div>
+          <div className="stat-label">This Week</div>
+        </div>
+      </div>
+
       <div className="card-scroll">
         <div className="section-header">{labelTitle}</div>
         <button className="primary-big-button" onClick={primaryWorkout ? onPrimaryPress : undefined}>
           <span className="primary-big-button-label">{buttonLabel}</span>
           <span className="primary-big-button-sub">{subLabel}</span>
+          <span className="primary-big-button-arrow"><IconChevron /></span>
         </button>
 
-        <div className="section-header">Pick a type of workout manually</div>
+        <div className="section-header">Quick pick</div>
         <div className="button-row">
-          <button className="secondary-button" onClick={() => onPickCategory("legs")}>Legs</button>
-          <button className="secondary-button" onClick={() => onPickCategory("push")}>Push</button>
-          <button className="secondary-button" onClick={() => onPickCategory("pull")}>Pull</button>
+          <button className="secondary-button legs" onClick={() => onPickCategory("legs")}>Legs</button>
+          <button className="secondary-button push" onClick={() => onPickCategory("push")}>Push</button>
+          <button className="secondary-button pull" onClick={() => onPickCategory("pull")}>Pull</button>
         </div>
 
-        <div className="section-header">Manage workouts</div>
-        <button className="outline-button" onClick={onGoToWorkouts}>View & reorder all workouts</button>
+        <div className="section-header">Manage</div>
+        <button className="outline-button" onClick={onGoToWorkouts}>
+          <IconList />
+          <span>All workouts</span>
+          <span className="outline-button-arrow"><IconChevron /></span>
+        </button>
 
-        <div className="section-header">Exercise tools</div>
-        <button className="outline-button" onClick={onOpenLibrary}>View exercise library</button>
-        <button className="create-exercise-button" onClick={onCreateExercise}>Create a new exercise</button>
+        <button className="outline-button" onClick={onOpenLibrary}>
+          <IconBook />
+          <span>Exercise library</span>
+          <span className="outline-button-arrow"><IconChevron /></span>
+        </button>
+
+        <button className="create-exercise-button" onClick={onCreateExercise}>
+          <IconPlus />
+          <span>Create a new exercise</span>
+        </button>
       </div>
     </div>
   );
@@ -824,12 +955,22 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
     );
   }
 
+  const checkedCount = workout.exercises.filter(item => !!exerciseChecked[getExerciseKey(workout.id, item)]).length;
+  const totalCount = workout.exercises.length;
+  const progressPct = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
+
   return (
     <div className="card">
-      <div className="workout-header-row"><button className="back-button" onClick={onBack}>&larr; Back</button></div>
+      <div className="workout-header-row">
+        <button className="back-button" onClick={onBack}>&larr; Back</button>
+        <span className={`cat-badge ${workout.category || ""}`}>{(workout.category || "").toUpperCase()}</span>
+      </div>
       <div className="title">{workout.name}</div>
       <div className="subtitle">{workout.focus}</div>
-      <div className="section-header">Exercises</div>
+      <div className="workout-progress-bar">
+        <div className="workout-progress-fill" style={{ width: `${progressPct}%` }} />
+      </div>
+      <div className="workout-progress-label">{checkedCount} of {totalCount} done ({progressPct}%)</div>
       <div className="card-scroll">
         {workout.exercises.map((item, index) => {
           const key = getExerciseKey(workout.id, item);
@@ -841,13 +982,14 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
           const w = progress?.weight ? progress.weight.trim() : "";
           const r = progress?.reps ? progress.reps.trim() : "";
           const parts = [];
-          if (w) parts.push(`Weight: ${w}`);
-          if (r) parts.push(`Reps: ${r}`);
-          const progressLabel = parts.length > 0 ? parts.join(" \u2022 ") + " (edit)" : "Tap to edit weight / reps";
+          if (w) parts.push(w);
+          if (r) parts.push(r);
+          const progressLabel = parts.length > 0 ? parts.join(" \u2022 ") : "Tap to edit";
           const hasMedia = !!(mediaEntry && mediaEntry.url);
 
           return (
             <div className="exercise-row" key={`${workout.id}-${index}`}>
+              <div className="exercise-number">{index + 1}</div>
               <div className="checkbox-wrapper" onClick={() => onToggleExercise(workout.id, item)}>
                 <div className={`checkbox ${checked ? "checked" : ""}`}>
                   {checked && <span className="checkbox-tick">{"\u2713"}</span>}
@@ -858,39 +1000,65 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
                 <div className="exercise-hint">{progressLabel}</div>
               </div>
               {hasMedia && (
-                <button className="media-btn" onClick={() => onExerciseMediaPress(workout.id, item)}>Example</button>
+                <button className="media-btn" onClick={() => onExerciseMediaPress(workout.id, item)}>View</button>
               )}
             </div>
           );
         })}
       </div>
-      <button className="complete-button" onClick={onComplete}>Mark today as done {"\u2705"}</button>
-      <button className="skip-button" onClick={onSkip}>Skip this workout {"\u23ED\uFE0F"}</button>
-      <button className="edit-exercises-button" onClick={onEditExercises}>Edit exercises (+/\u2013)</button>
+      <button className="complete-button" onClick={onComplete}>Complete workout</button>
+      <button className="skip-button" onClick={onSkip}>Skip this workout</button>
+      <button className="edit-exercises-button" onClick={onEditExercises}>Edit exercises</button>
     </div>
   );
 }
 
 /* ===== HISTORY ===== */
-function HistoryView({ history }) {
+function HistoryView({ history, workouts }) {
+  const getCategory = (item) => {
+    const w = workouts.find(w => w.id === item.workoutId);
+    return w ? w.category : "";
+  };
+
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr + "T12:00:00");
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    if (dateStr === today.toISOString().slice(0, 10)) return "Today";
+    if (dateStr === yesterday.toISOString().slice(0, 10)) return "Yesterday";
+    return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  };
+
   if (!history.length) {
     return (
       <div className="card">
-        <div className="title">No history yet</div>
-        <div className="subtitle">Once you mark workouts as done, they'll show up here.</div>
+        <div className="history-empty-state">
+          <div className="history-empty-icon"><DinoIcon /></div>
+          <div className="title">No history yet</div>
+          <div className="subtitle">Complete your first workout and it'll show up here.</div>
+        </div>
       </div>
     );
   }
   return (
     <div className="card">
       <div className="title">History</div>
+      <div className="subtitle">{history.length} workout{history.length !== 1 ? "s" : ""} completed</div>
       <div className="card-scroll">
-        {history.map((item, index) => (
-          <div className="history-row" key={`${item.date}-${index}`}>
-            <div className="history-date">{item.date}</div>
-            <div className="history-name">{item.name}</div>
-          </div>
-        ))}
+        {history.map((item, index) => {
+          const cat = getCategory(item);
+          return (
+            <div className="history-row" key={`${item.date}-${index}`}>
+              <div className={`history-cat-dot ${cat}`} />
+              <div className="history-info">
+                <div className="history-name">{item.name}</div>
+                <div className="history-date">{formatDate(item.date)}</div>
+              </div>
+              {cat && <span className={`cat-badge ${cat}`}>{cat}</span>}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -901,14 +1069,18 @@ function WorkoutsView({ workouts, onMoveWorkout, onOpenWorkout, onAddWorkout, on
   return (
     <div className="card">
       <div className="title">All workouts</div>
-      <button className="add-workout-button" onClick={onAddWorkout}>{"\uFF0B"} Add new workout</button>
-      <div className="subtitle">Reorder or open a workout to edit its exercises.</div>
+      <button className="add-workout-button" onClick={onAddWorkout}>+ Add new workout</button>
+      <div className="subtitle">{workouts.length} workout{workouts.length !== 1 ? "s" : ""} in rotation</div>
       <div className="card-scroll">
         {workouts.map((item) => (
           <div className="manage-row" key={item.id}>
+            <div className={`manage-cat-strip ${item.category || ""}`} />
             <div className="manage-info">
               <div className="manage-name">{item.name}</div>
-              <div className="manage-meta">{item.focus} {"\u2022"} {item.category?.toUpperCase()}</div>
+              <div className="manage-meta">
+                <span>{item.focus}</span>
+                <span className={`cat-badge ${item.category || ""}`}>{(item.category || "").toUpperCase()}</span>
+              </div>
             </div>
             <div className="manage-buttons">
               <button className="small-btn" onClick={() => onMoveWorkout(item.id, -1)}>{"\u2191"}</button>
@@ -970,6 +1142,7 @@ function ExerciseModal({ selected, progress, labels, media, onChange, onChangeLa
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-handle" />
         <div className="modal-title">{displayName}</div>
         <div className="modal-subtitle">Update your current numbers</div>
 
