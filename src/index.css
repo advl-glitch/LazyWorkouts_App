@@ -1210,3 +1210,32 @@ body {
   gap: 10px;
   margin-bottom: 4px;
 }
+
+/* ===== REMIX BUTTON ===== */
+.remix-btn {
+  margin-top: 12px;
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+  border: 2px solid var(--accent);
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.remix-btn:active { transform: scale(0.98); }
+
+.remix-btn.confirming {
+  background: var(--accent);
+  color: #FFFFFF;
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 0 8px transparent; }
+}

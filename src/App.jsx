@@ -194,6 +194,163 @@ const ALL_MUSCLE_OPTIONS = [
   "Rear Deltoids", "Quads", "Hamstrings", "Glutes", "Calves", "Core",
 ];
 
+// ===== EXERCISE DATABASE (sound training structure) =====
+// Organized by category → type (compound first, isolation after)
+// Each exercise: name, primary muscles, default set/rep scheme
+const EXERCISE_DB = {
+  push: {
+    compound: [
+      { name: "Barbell bench press 3×8-10", muscles: ["Chest", "Triceps", "Shoulders"] },
+      { name: "Incline dumbbell press 3×8-10", muscles: ["Chest", "Shoulders", "Triceps"] },
+      { name: "Overhead press 3×8-10", muscles: ["Shoulders", "Triceps"] },
+      { name: "Dumbbell shoulder press 3×8-10", muscles: ["Shoulders", "Triceps"] },
+      { name: "Dips 3×8-12", muscles: ["Chest", "Triceps", "Shoulders"] },
+      { name: "Close-grip bench press 3×8-10", muscles: ["Triceps", "Chest"] },
+      { name: "Incline barbell press 3×8-10", muscles: ["Chest", "Shoulders"] },
+      { name: "Machine chest press 3×10-12", muscles: ["Chest", "Triceps"] },
+      { name: "Push-ups 3×12-15", muscles: ["Chest", "Triceps", "Shoulders"] },
+      { name: "Landmine press 3×10-12", muscles: ["Shoulders", "Chest"] },
+    ],
+    isolation: [
+      { name: "Lateral raises 3×12-15", muscles: ["Shoulders"] },
+      { name: "Cable lateral raises 3×12-15", muscles: ["Shoulders"] },
+      { name: "Chest flys (cable) 3×10-12", muscles: ["Chest"] },
+      { name: "Dumbbell flys 3×10-12", muscles: ["Chest"] },
+      { name: "Tricep pushdowns 3×10-12", muscles: ["Triceps"] },
+      { name: "Overhead tricep extension 3×10-12", muscles: ["Triceps"] },
+      { name: "Skull crushers 3×10-12", muscles: ["Triceps"] },
+      { name: "Front raises 3×12-15", muscles: ["Shoulders"] },
+      { name: "Pec deck / machine flys 3×10-12", muscles: ["Chest"] },
+      { name: "Tricep kickbacks 3×12-15", muscles: ["Triceps"] },
+    ],
+  },
+  pull: {
+    compound: [
+      { name: "Barbell rows 3×8-10", muscles: ["Back", "Biceps"] },
+      { name: "Lat pulldowns 3×10-12", muscles: ["Back", "Biceps"] },
+      { name: "Seated cable rows 3×10-12", muscles: ["Back", "Biceps"] },
+      { name: "Chest-supported rows 3×8-10", muscles: ["Back", "Rear Deltoids"] },
+      { name: "Pull-ups 3×6-10", muscles: ["Back", "Biceps"] },
+      { name: "Chin-ups 3×6-10", muscles: ["Back", "Biceps"] },
+      { name: "T-bar rows 3×8-10", muscles: ["Back", "Biceps"] },
+      { name: "Dumbbell rows 3×8-10", muscles: ["Back", "Biceps"] },
+      { name: "Meadows rows 3×10-12", muscles: ["Back", "Rear Deltoids"] },
+      { name: "Pendlay rows 3×5-8", muscles: ["Back", "Biceps"] },
+    ],
+    isolation: [
+      { name: "Seated dumbbell curls 3×10-12", muscles: ["Biceps"] },
+      { name: "Hammer curls 3×10-12", muscles: ["Biceps"] },
+      { name: "Reverse curls 3×12-15", muscles: ["Biceps"] },
+      { name: "Face pulls 3×15-20", muscles: ["Rear Deltoids", "Back"] },
+      { name: "Rear delt flys 3×12-15", muscles: ["Rear Deltoids"] },
+      { name: "Back extensions 3×10-12", muscles: ["Back", "Core"] },
+      { name: "Preacher curls 3×10-12", muscles: ["Biceps"] },
+      { name: "Cable curls 3×12-15", muscles: ["Biceps"] },
+      { name: "Concentration curls 3×10-12", muscles: ["Biceps"] },
+      { name: "Incline dumbbell curls 3×10-12", muscles: ["Biceps"] },
+    ],
+  },
+  legs: {
+    compound: [
+      { name: "Barbell squats 3×8-10", muscles: ["Quads", "Glutes", "Hamstrings"] },
+      { name: "Romanian deadlifts 3×8-10", muscles: ["Hamstrings", "Glutes", "Back"] },
+      { name: "Lunges 3×8-10 each", muscles: ["Quads", "Glutes"] },
+      { name: "Leg press 3×10-12", muscles: ["Quads", "Glutes"] },
+      { name: "Bulgarian split squats 3×8-10 each", muscles: ["Quads", "Glutes"] },
+      { name: "Hip thrusts 3×10-12", muscles: ["Glutes", "Hamstrings"] },
+      { name: "Goblet squats 3×10-12", muscles: ["Quads", "Glutes"] },
+      { name: "Step-ups 3×10 each", muscles: ["Quads", "Glutes"] },
+      { name: "Sumo deadlifts 3×8-10", muscles: ["Glutes", "Hamstrings", "Quads"] },
+      { name: "Front squats 3×8-10", muscles: ["Quads", "Core"] },
+    ],
+    isolation: [
+      { name: "Leg extensions 3×12-15", muscles: ["Quads"] },
+      { name: "Seated leg curls 3×10-12", muscles: ["Hamstrings"] },
+      { name: "Lying leg curls 3×10-12", muscles: ["Hamstrings"] },
+      { name: "Calf raises 3×12-15", muscles: ["Calves"] },
+      { name: "Seated calf raises 3×15-20", muscles: ["Calves"] },
+      { name: "Hip abduction machine 3×12-15", muscles: ["Glutes"] },
+      { name: "Hip adduction machine 3×12-15", muscles: ["Quads"] },
+      { name: "Glute kickbacks 3×12-15", muscles: ["Glutes"] },
+      { name: "Ab crunch machine 3×12-15", muscles: ["Core"] },
+      { name: "Cable pull-throughs 3×12-15", muscles: ["Glutes", "Hamstrings"] },
+    ],
+  },
+};
+
+// ===== WARMUP SUGGESTIONS PER CATEGORY =====
+const WARMUP_HINTS = {
+  push: [
+    "Arm circles (10 forward, 10 backward)",
+    "Band pull-aparts × 15",
+    "Shoulder dislocates with band × 10",
+    "Light push-ups × 10",
+  ],
+  pull: [
+    "Cat-cow stretches × 10",
+    "Band pull-aparts × 15",
+    "Dead hang 20-30 sec",
+    "Light band rows × 12",
+  ],
+  legs: [
+    "Bodyweight squats × 15",
+    "Leg swings (front/back) × 10 each",
+    "Hip circles × 10 each direction",
+    "Walking lunges × 8 each",
+  ],
+};
+
+// ===== REMIX HELPERS =====
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function generateRemixExercises(category, avoidNames = []) {
+  const db = EXERCISE_DB[category];
+  if (!db) return [];
+  const avoidSet = new Set(avoidNames.map(n => n.toLowerCase()));
+
+  const availCompound = shuffleArray(db.compound.filter(e => !avoidSet.has(e.name.toLowerCase())));
+  const availIsolation = shuffleArray(db.isolation.filter(e => !avoidSet.has(e.name.toLowerCase())));
+
+  // Pick 2-3 compound, 2-3 isolation (5-6 total, compounds first)
+  const numCompound = Math.min(availCompound.length, 2 + Math.round(Math.random()));
+  const numIsolation = Math.min(availIsolation.length, 2 + Math.round(Math.random()));
+
+  const picked = [
+    ...availCompound.slice(0, numCompound),
+    ...availIsolation.slice(0, numIsolation),
+  ];
+
+  return picked.map(e => e.name);
+}
+
+function reorderRotation(workoutList) {
+  // Reorder so same category never appears back-to-back
+  if (workoutList.length <= 2) return workoutList;
+  const result = [];
+  const remaining = [...workoutList];
+
+  // Greedy: pick next workout that doesn't match last category
+  let lastCat = null;
+  while (remaining.length > 0) {
+    const idx = remaining.findIndex(w => w.category !== lastCat);
+    if (idx >= 0) {
+      result.push(remaining.splice(idx, 1)[0]);
+    } else {
+      // No choice, just add whatever's left
+      result.push(remaining.shift());
+    }
+    lastCat = result[result.length - 1].category;
+  }
+  return result;
+}
+
 const STORAGE_KEYS = {
   index: "@currentWorkoutIndex",
   history: "@workoutHistory",
@@ -209,6 +366,7 @@ const STORAGE_KEYS = {
   custom: "@customWorkouts",
   library: "@exerciseLibrary",
   deletedWorkouts: "@deletedWorkouts",
+  lockedWorkouts: "@lockedWorkouts",
 };
 
 const getExerciseKey = (workoutId, exerciseName) =>
@@ -235,6 +393,7 @@ export default function App() {
   const [customWorkouts, setCustomWorkouts] = useState([]);
   const [libraryExercises, setLibraryExercises] = useState([]);
   const [deletedWorkouts, setDeletedWorkouts] = useState([]);
+  const [lockedWorkouts, setLockedWorkouts] = useState([]);
 
   const [lastIncompleteSession, setLastIncompleteSession] = useState(null);
 
@@ -285,6 +444,8 @@ export default function App() {
         if (customStr) { const p = JSON.parse(customStr); if (Array.isArray(p)) setCustomWorkouts(p); }
         if (libraryStr) { const p = JSON.parse(libraryStr); if (Array.isArray(p)) setLibraryExercises(p); }
         if (deletedStr) { const p = JSON.parse(deletedStr); if (Array.isArray(p)) setDeletedWorkouts(p); }
+        const lockedStr = storage.getItem(STORAGE_KEYS.lockedWorkouts);
+        if (lockedStr) { const p = JSON.parse(lockedStr); if (Array.isArray(p)) setLockedWorkouts(p); }
       } catch (e) {
         console.log("load error", e);
       }
@@ -306,6 +467,7 @@ export default function App() {
   useEffect(() => { storage.setItem(STORAGE_KEYS.custom, JSON.stringify(customWorkouts)); }, [customWorkouts]);
   useEffect(() => { storage.setItem(STORAGE_KEYS.library, JSON.stringify(libraryExercises)); }, [libraryExercises]);
   useEffect(() => { storage.setItem(STORAGE_KEYS.deletedWorkouts, JSON.stringify(deletedWorkouts)); }, [deletedWorkouts]);
+  useEffect(() => { storage.setItem(STORAGE_KEYS.lockedWorkouts, JSON.stringify(lockedWorkouts)); }, [lockedWorkouts]);
 
   // ===== WORKOUT + EXERCISE DATA =====
   const baseWorkouts = useMemo(
@@ -551,6 +713,55 @@ export default function App() {
     saveLastSession(workoutId);
   }
 
+  function toggleLockWorkout(id) {
+    setLockedWorkouts((prev) => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  }
+
+  function remixRotation() {
+    // Collect names of exercises used across ALL workouts to try to vary picks
+    const allUsedNames = [];
+    orderedWorkouts.forEach(w => {
+      w.exercises.forEach(e => allUsedNames.push(e));
+    });
+
+    // For each unlocked workout, generate new exercises
+    const newExtra = { ...extraExercises };
+    const newRemoved = { ...removedExercises };
+
+    orderedWorkouts.forEach(w => {
+      if (lockedWorkouts.includes(w.id)) return; // skip locked
+
+      const cat = w.category;
+      if (!EXERCISE_DB[cat]) return;
+
+      // Get names used in OTHER workouts (to vary picks)
+      const otherNames = [];
+      orderedWorkouts.forEach(ow => {
+        if (ow.id !== w.id) ow.exercises.forEach(e => otherNames.push(e));
+      });
+
+      const newExercises = generateRemixExercises(cat, otherNames);
+      if (!newExercises.length) return;
+
+      // Remove all base exercises
+      const baseWorkout = baseWorkouts.find(bw => bw.id === w.id);
+      if (baseWorkout && baseWorkout.exercises) {
+        newRemoved[w.id] = [...baseWorkout.exercises];
+      }
+
+      // Replace extras with the new generated list
+      newExtra[w.id] = newExercises;
+    });
+
+    setExtraExercises(newExtra);
+    setRemovedExercises(newRemoved);
+
+    // Reorder so same category isn't back-to-back
+    const reordered = reorderRotation(orderedWorkouts);
+    setWorkoutOrderIds(reordered.map(w => w.id));
+    setCurrentIndex(0);
+  }
+
   function handleHomePrimaryPress() {
     if (!primaryWorkout) return;
     const idx = orderedWorkouts.findIndex((w) => w.id === primaryWorkout.id);
@@ -699,6 +910,7 @@ export default function App() {
         <WorkoutsView
           workouts={orderedWorkouts} onMoveWorkout={moveWorkout} onOpenWorkout={jumpToWorkout}
           onAddWorkout={() => setAddWorkoutVisible(true)} onOpenDeleteModal={() => setDeleteModalVisible(true)}
+          lockedWorkouts={lockedWorkouts} onToggleLock={toggleLockWorkout} onRemix={remixRotation}
         />
       )}
 
@@ -988,6 +1200,7 @@ function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategor
 
 /* ===== TODAY VIEW ===== */
 function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExercise, onExercisePress, onExerciseMediaPress, onEditExercises, exerciseProgress, exerciseLabels, exerciseMedia, onBack }) {
+  const [showWarmup, setShowWarmup] = useState(false);
   if (!workout) {
     return (
       <div className="card">
@@ -1014,6 +1227,27 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
         <div className="workout-progress-fill" style={{ width: `${progressPct}%` }} />
       </div>
       <div className="workout-progress-label">{checkedCount} of {totalCount} done ({progressPct}%)</div>
+
+      {WARMUP_HINTS[workout.category] && (
+        <button
+          className="outline-button"
+          style={{ marginBottom: 8, fontSize: 13 }}
+          onClick={() => setShowWarmup(p => !p)}
+        >
+          <span>{showWarmup ? "\u25BC" : "\u25B6"} Warmup suggestions</span>
+        </button>
+      )}
+      {showWarmup && WARMUP_HINTS[workout.category] && (
+        <div style={{ marginBottom: 10 }}>
+          {WARMUP_HINTS[workout.category].map((hint, i) => (
+            <div key={i} style={{ padding: "6px 12px", fontSize: 13, color: "var(--text-secondary)", display: "flex", gap: 8, alignItems: "center" }}>
+              <span style={{ color: "var(--accent)", fontWeight: 700 }}>{"\u2022"}</span>
+              <span>{hint}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="card-scroll">
         {workout.exercises.map((item, index) => {
           const key = getExerciseKey(workout.id, item);
@@ -1108,31 +1342,68 @@ function HistoryView({ history, workouts }) {
 }
 
 /* ===== WORKOUTS TAB ===== */
-function WorkoutsView({ workouts, onMoveWorkout, onOpenWorkout, onAddWorkout, onOpenDeleteModal }) {
+function WorkoutsView({ workouts, onMoveWorkout, onOpenWorkout, onAddWorkout, onOpenDeleteModal, lockedWorkouts, onToggleLock, onRemix }) {
+  const [remixConfirm, setRemixConfirm] = useState(false);
+
+  const handleRemix = () => {
+    if (!remixConfirm) { setRemixConfirm(true); return; }
+    onRemix();
+    setRemixConfirm(false);
+  };
+
+  const unlockedCount = workouts.filter(w => !lockedWorkouts.includes(w.id)).length;
+
   return (
     <div className="card">
       <div className="title">All workouts</div>
-      <button className="add-workout-button" onClick={onAddWorkout}>+ Add new workout</button>
+      <div style={{ display: "flex", gap: 8, marginTop: 6, marginBottom: 10 }}>
+        <button className="add-workout-button" onClick={onAddWorkout}>+ Add new</button>
+      </div>
       <div className="subtitle">{workouts.length} workout{workouts.length !== 1 ? "s" : ""} in rotation</div>
       <div className="card-scroll">
-        {workouts.map((item) => (
-          <div className="manage-row" key={item.id}>
-            <div className={`manage-cat-strip ${item.category || ""}`} />
-            <div className="manage-info">
-              <div className="manage-name">{item.name}</div>
-              <div className="manage-meta">
-                <span>{item.focus}</span>
-                <span className={`cat-badge ${item.category || ""}`}>{(item.category || "").toUpperCase()}</span>
+        {workouts.map((item) => {
+          const isLocked = lockedWorkouts.includes(item.id);
+          return (
+            <div className="manage-row" key={item.id}>
+              <div className={`manage-cat-strip ${item.category || ""}`} />
+              <div className="manage-info">
+                <div className="manage-name">
+                  {isLocked && <span title="Locked from remix" style={{ marginRight: 4 }}>{"\uD83D\uDD12"}</span>}
+                  {item.name}
+                </div>
+                <div className="manage-meta">
+                  <span>{item.focus}</span>
+                  <span className={`cat-badge ${item.category || ""}`}>{(item.category || "").toUpperCase()}</span>
+                </div>
+              </div>
+              <div className="manage-buttons">
+                <button
+                  className="small-btn"
+                  onClick={() => onToggleLock(item.id)}
+                  title={isLocked ? "Unlock for remix" : "Lock from remix"}
+                  style={isLocked ? { background: "var(--accent-glow)", color: "var(--accent)" } : {}}
+                >{isLocked ? "\uD83D\uDD12" : "\uD83D\uDD13"}</button>
+                <button className="small-btn" onClick={() => onMoveWorkout(item.id, -1)}>{"\u2191"}</button>
+                <button className="small-btn" onClick={() => onMoveWorkout(item.id, 1)}>{"\u2193"}</button>
+                <button className="small-btn-outline" onClick={() => onOpenWorkout(item.id)}>Open</button>
               </div>
             </div>
-            <div className="manage-buttons">
-              <button className="small-btn" onClick={() => onMoveWorkout(item.id, -1)}>{"\u2191"}</button>
-              <button className="small-btn" onClick={() => onMoveWorkout(item.id, 1)}>{"\u2193"}</button>
-              <button className="small-btn-outline" onClick={() => onOpenWorkout(item.id)}>Open</button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
+      <button
+        className={`modal-button ${remixConfirm ? "" : ""}`}
+        style={{ marginTop: 12, background: remixConfirm ? "var(--accent)" : "var(--surface)", color: remixConfirm ? "#fff" : "var(--accent)", border: `1px solid var(--accent)` }}
+        onClick={handleRemix}
+        disabled={unlockedCount === 0}
+      >
+        {remixConfirm ? `Remix ${unlockedCount} unlocked workout${unlockedCount !== 1 ? "s" : ""}? Tap again to confirm` : `Remix rotation (${unlockedCount} unlocked)`}
+      </button>
+      {remixConfirm && (
+        <button className="modal-button cancel" style={{ marginTop: 6 }} onClick={() => setRemixConfirm(false)}>Cancel</button>
+      )}
+
       <button className="delete-workouts-button" onClick={onOpenDeleteModal}>Delete workouts</button>
     </div>
   );
