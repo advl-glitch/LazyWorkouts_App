@@ -1064,59 +1064,68 @@ export default function App() {
 /* ===== SVG ICONS ===== */
 const DinoIcon = () => (
   <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Tail */}
-    <path d="M14 38Q6 34 4 26Q6 28 9 28Q7 24 8 20" stroke="#6ABF69" strokeWidth="4" fill="#7BC67A" strokeLinecap="round"/>
-    {/* Body */}
-    <ellipse cx="26" cy="38" rx="14" ry="12" fill="#7BC67A"/>
-    {/* Body spots */}
-    <circle cx="22" cy="34" r="2.5" fill="#6ABF69" opacity="0.5"/>
-    <circle cx="30" cy="38" r="2" fill="#6ABF69" opacity="0.4"/>
-    {/* Neck */}
-    <path d="M34 30Q38 20 36 10" stroke="#7BC67A" strokeWidth="10" fill="none" strokeLinecap="round"/>
-    {/* Head */}
-    <ellipse cx="38" cy="10" rx="11" ry="9" fill="#7BC67A"/>
-    {/* Snout bump */}
-    <ellipse cx="46" cy="12" rx="5" ry="4" fill="#7BC67A"/>
-    {/* Mouth line */}
-    <path d="M44 15Q48 16 50 14" stroke="#4A8C49" strokeWidth="1" fill="none" strokeLinecap="round"/>
-    {/* Eye white */}
-    <circle cx="40" cy="8" r="4.5" fill="white"/>
-    {/* Eye pupil */}
-    <circle cx="41" cy="8" r="2.5" fill="#2D2D2D"/>
-    {/* Eye shine */}
-    <circle cx="42" cy="7" r="1" fill="white"/>
-    {/* Nostril */}
-    <circle cx="48" cy="11" r="0.8" fill="#4A8C49"/>
-    {/* Back spikes */}
-    <path d="M30 6L32 2L34 7" fill="#6ABF69"/>
-    <path d="M34 4L36 0L38 5" fill="#6ABF69"/>
-    <path d="M32 28L34 24L36 29" fill="#6ABF69"/>
-    <path d="M30 32L32 28L34 33" fill="#6ABF69"/>
-    {/* Red headband */}
-    <path d="M28 7Q33 3 43 4Q48 5 50 8" stroke="#E53935" strokeWidth="3" fill="none" strokeLinecap="round"/>
-    {/* Headband tail flap */}
-    <path d="M28 7L24 4L26 8" fill="#E53935" stroke="#E53935" strokeWidth="0.5" strokeLinejoin="round"/>
-    <path d="M28 7L25 9L27 6" fill="#C62828" stroke="#C62828" strokeWidth="0.5" strokeLinejoin="round"/>
-    {/* Tiny arms */}
-    <path d="M32 30Q34 32 36 31" stroke="#6ABF69" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-    {/* Barbell - bar */}
-    <line x1="34" y1="28" x2="34" y2="36" stroke="#666" strokeWidth="1.5" strokeLinecap="round"/>
-    {/* Barbell - top weight */}
-    <ellipse cx="34" cy="27" rx="3" ry="1.8" fill="#555"/>
-    <ellipse cx="34" cy="27" rx="2.2" ry="1.3" fill="#777"/>
-    {/* Barbell - bottom weight */}
-    <ellipse cx="34" cy="37" rx="3" ry="1.8" fill="#555"/>
-    <ellipse cx="34" cy="37" rx="2.2" ry="1.3" fill="#777"/>
-    {/* Hand grip */}
-    <circle cx="34" cy="32" r="1.5" fill="#6ABF69" stroke="#5AAF59" strokeWidth="0.5"/>
-    {/* Legs */}
-    <path d="M18 47Q16 52 14 54Q13 55 16 55Q18 55 19 53" fill="#7BC67A"/>
-    <path d="M30 47Q32 52 34 54Q35 55 32 55Q30 55 29 53" fill="#7BC67A"/>
+    {/* Tail - thick, extends right */}
+    <path d="M38 40Q46 38 54 32Q56 30 58 32Q54 36 48 42Q42 46 38 44Z" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8"/>
+    {/* Tail spikes */}
+    <path d="M50 34L52 30L52 35" fill="#2D8C3C"/>
+    <path d="M46 37L48 33L48 38" fill="#2D8C3C"/>
+    {/* Back leg (far) */}
+    <path d="M30 46L28 54L26 56L24 56L26 54L27 52L30 46" fill="#5AAF59" stroke="#2D8C3C" strokeWidth="0.5"/>
+    {/* Back leg (near) */}
+    <path d="M34 46L33 54L31 57L28 57L31 55L32 52L34 46" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.5"/>
     {/* Toes */}
-    <circle cx="14" cy="55" r="1" fill="#6ABF69"/>
-    <circle cx="16" cy="55.5" r="1" fill="#6ABF69"/>
-    <circle cx="32" cy="55.5" r="1" fill="#6ABF69"/>
-    <circle cx="34" cy="55" r="1" fill="#6ABF69"/>
+    <circle cx="24" cy="56.5" r="1" fill="#5AAF59"/>
+    <circle cx="26" cy="56.8" r="1" fill="#5AAF59"/>
+    <circle cx="28.5" cy="57.5" r="1" fill="#6ABF69"/>
+    <circle cx="30.5" cy="57.8" r="1" fill="#6ABF69"/>
+    {/* Body - upright oval, slightly leaning forward */}
+    <ellipse cx="30" cy="36" rx="11" ry="14" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8"/>
+    {/* Belly */}
+    <ellipse cx="28" cy="40" rx="7" ry="9" fill="#C8E6C9"/>
+    {/* Body spots */}
+    <circle cx="35" cy="30" r="2" fill="#4A9E4E" opacity="0.4"/>
+    <circle cx="37" cy="37" r="1.5" fill="#4A9E4E" opacity="0.3"/>
+    {/* Back spikes */}
+    <path d="M36 22L39 18L37 23" fill="#2D8C3C"/>
+    <path d="M37 26L40 22L38 27" fill="#2D8C3C"/>
+    <path d="M38 31L41 27L39 32" fill="#2D8C3C"/>
+    <path d="M38 36L41 32L39 37" fill="#2D8C3C"/>
+    {/* Neck */}
+    <path d="M26 24Q24 18 22 14Q20 12 22 10" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8"/>
+    <path d="M30 22Q28 16 26 12Q24 10 26 8" fill="#6ABF69"/>
+    {/* Head - big flat T-Rex snout facing left */}
+    <path d="M8 6Q6 2 10 1L26 1Q28 1 28 4L28 14Q28 17 26 17L10 17Q6 17 6 13L6 10Z" fill="#6ABF69" stroke="#2D8C3C" strokeWidth="0.8" strokeLinejoin="round"/>
+    {/* Snout top ridge */}
+    <path d="M8 4Q10 2 14 2" stroke="#4A9E4E" strokeWidth="0.8" fill="none"/>
+    {/* Nostril */}
+    <circle cx="10" cy="7" r="1.2" fill="#2D8C3C"/>
+    {/* Eye white */}
+    <circle cx="20" cy="7" r="4" fill="white" stroke="#2D8C3C" strokeWidth="0.5"/>
+    {/* Pupil */}
+    <circle cx="19" cy="7" r="2.2" fill="#1A1A1A"/>
+    {/* Eye shine */}
+    <circle cx="18" cy="6" r="0.9" fill="white"/>
+    {/* Smile / mouth line */}
+    <path d="M8 13Q12 15 18 14" stroke="#2D8C3C" strokeWidth="0.8" fill="none" strokeLinecap="round"/>
+    {/* Teeth */}
+    <path d="M10 13L11 15.5L12 13" fill="white" stroke="#2D8C3C" strokeWidth="0.3"/>
+    <path d="M14 13.5L15 16L16 13.5" fill="white" stroke="#2D8C3C" strokeWidth="0.3"/>
+    {/* Red headband */}
+    <path d="M7 4Q14 0 26 2Q28 2.5 28 4" stroke="#E53935" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    {/* Headband tails hanging */}
+    <path d="M7 4L4 7" stroke="#E53935" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M7 4L5 8" stroke="#C62828" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Tiny T-Rex arm */}
+    <path d="M24 28Q20 30 18 29" stroke="#6ABF69" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    <path d="M18 29L17 28M18 29L17 30" stroke="#4A9E4E" strokeWidth="1" strokeLinecap="round"/>
+    {/* Barbell */}
+    <line x1="13" y1="27" x2="13" y2="33" stroke="#555" strokeWidth="1.2" strokeLinecap="round"/>
+    <rect x="10" y="26" width="6" height="2.5" rx="0.8" fill="#666"/>
+    <rect x="11" y="26.3" width="4" height="1.8" rx="0.5" fill="#888"/>
+    <rect x="10" y="31.5" width="6" height="2.5" rx="0.8" fill="#666"/>
+    <rect x="11" y="31.8" width="4" height="1.8" rx="0.5" fill="#888"/>
+    {/* Hand on barbell */}
+    <circle cx="15" cy="29.5" r="1.8" fill="#6ABF69" stroke="#4A9E4E" strokeWidth="0.5"/>
   </svg>
 );
 
