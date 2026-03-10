@@ -1266,15 +1266,14 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
     );
   }
 
-  const checkedCount = workout.exercises.filter(item => !!exerciseChecked[getExerciseKey(workout.id, item)]).length;
-  const totalCount = workout.exercises.length;
-  const progressPct = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
-
   return (
     <div className="card">
       <div className="workout-header-row">
         <button className="back-button" onClick={onBack}>&larr; Back</button>
-        <span className={`cat-badge ${workout.category || ""}`}>{(workout.category || "").toUpperCase()}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span className={`cat-badge ${workout.category || ""}`}>{(workout.category || "").toUpperCase()}</span>
+          <button className="gear-btn" onClick={onEditExercises} title="Edit exercises">⚙</button>
+        </div>
       </div>
       {editingName ? (
         <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 4 }}>
@@ -1297,10 +1296,6 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
         </div>
       )}
       <div className="subtitle">{workout.focus}</div>
-      <div className="workout-progress-bar">
-        <div className="workout-progress-fill" style={{ width: `${progressPct}%` }} />
-      </div>
-      <div className="workout-progress-label">{checkedCount} of {totalCount} done ({progressPct}%)</div>
 
       {WARMUP_HINTS[workout.category] && (
         <button
@@ -1377,8 +1372,7 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
         </div>
       )}
       <button className="complete-button" onClick={onComplete}>Complete workout</button>
-      <button className="skip-button" onClick={onSkip}>Skip this workout</button>
-      <button className="edit-exercises-button" onClick={onEditExercises}>Edit exercises</button>
+      <button className="skip-button" onClick={onSkip}>Skip</button>
     </div>
   );
 }

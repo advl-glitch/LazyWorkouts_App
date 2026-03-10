@@ -733,6 +733,21 @@ body {
 .editable-title:hover .edit-hint,
 .manage-name:hover .edit-hint { opacity: 1; }
 
+.gear-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+.gear-btn:active { background: var(--surface-2); }
+
 .rename-input {
   flex: 1;
   padding: 6px 10px;
