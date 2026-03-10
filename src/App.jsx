@@ -370,6 +370,27 @@ const WARMUP_HINTS = {
   ],
 };
 
+const STRETCH_HINTS = {
+  push: [
+    "Doorway chest stretch — 30 sec each side",
+    "Cross-body shoulder stretch — 30 sec each",
+    "Overhead tricep stretch — 30 sec each arm",
+    "Child's pose — 30 sec",
+  ],
+  pull: [
+    "Lat stretch (hang or doorframe) — 30 sec each",
+    "Seated bicep stretch (palms back) — 30 sec",
+    "Upper trap stretch (ear to shoulder) — 30 sec each",
+    "Thread the needle — 30 sec each side",
+  ],
+  legs: [
+    "Standing quad stretch — 30 sec each",
+    "Seated hamstring stretch — 30 sec each",
+    "Pigeon pose (hip flexors) — 30 sec each",
+    "Standing calf stretch — 30 sec each",
+  ],
+};
+
 // ===== REMIX HELPERS =====
 function shuffleArray(arr) {
   const a = [...arr];
@@ -437,6 +458,7 @@ const STORAGE_KEYS = {
   library: "@exerciseLibrary",
   deletedWorkouts: "@deletedWorkouts",
   lockedWorkouts: "@lockedWorkouts",
+  workoutNames: "@workoutNames",
 };
 
 const getExerciseKey = (workoutId, exerciseName) =>
@@ -464,6 +486,7 @@ export default function App() {
   const [libraryExercises, setLibraryExercises] = useState([]);
   const [deletedWorkouts, setDeletedWorkouts] = useState([]);
   const [lockedWorkouts, setLockedWorkouts] = useState([]);
+  const [workoutNames, setWorkoutNames] = useState({});
 
   const [lastIncompleteSession, setLastIncompleteSession] = useState(null);
 
@@ -516,6 +539,8 @@ export default function App() {
         if (deletedStr) { const p = JSON.parse(deletedStr); if (Array.isArray(p)) setDeletedWorkouts(p); }
         const lockedStr = storage.getItem(STORAGE_KEYS.lockedWorkouts);
         if (lockedStr) { const p = JSON.parse(lockedStr); if (Array.isArray(p)) setLockedWorkouts(p); }
+        const namesStr = storage.getItem(STORAGE_KEYS.workoutNames);
+        if (namesStr) { const p = JSON.parse(namesStr); if (p && typeof p === "object") setWorkoutNames(p); }
       } catch (e) {
         console.log("load error", e);
       }
@@ -538,6 +563,7 @@ export default function App() {
   useEffect(() => { storage.setItem(STORAGE_KEYS.library, JSON.stringify(libraryExercises)); }, [libraryExercises]);
   useEffect(() => { storage.setItem(STORAGE_KEYS.deletedWorkouts, JSON.stringify(deletedWorkouts)); }, [deletedWorkouts]);
   useEffect(() => { storage.setItem(STORAGE_KEYS.lockedWorkouts, JSON.stringify(lockedWorkouts)); }, [lockedWorkouts]);
+  useEffect(() => { storage.setItem(STORAGE_KEYS.workoutNames, JSON.stringify(workoutNames)); }, [workoutNames]);
 
   // ===== WORKOUT + EXERCISE DATA =====
   const baseWorkouts = useMemo(
@@ -563,6 +589,7 @@ export default function App() {
 
   const orderedWorkouts = orderedBase.map((w) => ({
     ...w,
+    name: workoutNames[w.id] || w.name,
     exercises: getEffectiveExercisesFor(w),
   }));
 
@@ -832,6 +859,12 @@ export default function App() {
     setCurrentIndex(0);
   }
 
+  function renameWorkout(id, newName) {
+    const clean = (newName || "").trim();
+    if (!clean) return;
+    setWorkoutNames((prev) => ({ ...prev, [id]: clean }));
+  }
+
   function handleHomePrimaryPress() {
     if (!primaryWorkout) return;
     const idx = orderedWorkouts.findIndex((w) => w.id === primaryWorkout.id);
@@ -957,6 +990,7 @@ export default function App() {
           onEditExercises={() => currentWorkout && setEditWorkoutId(currentWorkout.id)}
           exerciseProgress={exerciseProgress} exerciseLabels={exerciseLabels}
           exerciseMedia={exerciseMedia} onBack={onBackFromWorkout}
+          onRename={(newName) => currentWorkout && renameWorkout(currentWorkout.id, newName)}
         />
       ) : activeScreen === "library" ? (
         <ExerciseLibraryView
@@ -981,6 +1015,7 @@ export default function App() {
           workouts={orderedWorkouts} onMoveWorkout={moveWorkout} onOpenWorkout={jumpToWorkout}
           onAddWorkout={() => setAddWorkoutVisible(true)} onOpenDeleteModal={() => setDeleteModalVisible(true)}
           lockedWorkouts={lockedWorkouts} onToggleLock={toggleLockWorkout} onRemix={remixRotation}
+          onRenameWorkout={renameWorkout}
         />
       )}
 
@@ -1216,8 +1251,11 @@ function HomeView({ primaryWorkout, hasIncomplete, onPrimaryPress, onPickCategor
 }
 
 /* ===== TODAY VIEW ===== */
-function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExercise, onExercisePress, onExerciseMediaPress, onEditExercises, exerciseProgress, exerciseLabels, exerciseMedia, onBack }) {
+function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExercise, onExercisePress, onExerciseMediaPress, onEditExercises, exerciseProgress, exerciseLabels, exerciseMedia, onBack, onRename }) {
   const [showWarmup, setShowWarmup] = useState(false);
+  const [showStretch, setShowStretch] = useState(false);
+  const [editingName, setEditingName] = useState(false);
+  const [draftName, setDraftName] = useState("");
   if (!workout) {
     return (
       <div className="card">
@@ -1238,7 +1276,26 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
         <button className="back-button" onClick={onBack}>&larr; Back</button>
         <span className={`cat-badge ${workout.category || ""}`}>{(workout.category || "").toUpperCase()}</span>
       </div>
-      <div className="title">{workout.name}</div>
+      {editingName ? (
+        <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 4 }}>
+          <input
+            className="rename-input"
+            autoFocus
+            value={draftName}
+            onChange={(e) => setDraftName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") { if (draftName.trim()) onRename(draftName.trim()); setEditingName(false); }
+              if (e.key === "Escape") setEditingName(false);
+            }}
+          />
+          <button className="small-btn" onClick={() => { if (draftName.trim()) onRename(draftName.trim()); setEditingName(false); }}>Save</button>
+          <button className="small-btn" onClick={() => setEditingName(false)}>✕</button>
+        </div>
+      ) : (
+        <div className="title editable-title" onClick={() => { setDraftName(workout.name); setEditingName(true); }}>
+          {workout.name} <span className="edit-hint">✎</span>
+        </div>
+      )}
       <div className="subtitle">{workout.focus}</div>
       <div className="workout-progress-bar">
         <div className="workout-progress-fill" style={{ width: `${progressPct}%` }} />
@@ -1300,6 +1357,25 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
           );
         })}
       </div>
+      {STRETCH_HINTS[workout.category] && (
+        <button
+          className="outline-button"
+          style={{ marginTop: 8, marginBottom: 8, fontSize: 13 }}
+          onClick={() => setShowStretch(p => !p)}
+        >
+          <span>{showStretch ? "\u25BC" : "\u25B6"} Cooldown stretches</span>
+        </button>
+      )}
+      {showStretch && STRETCH_HINTS[workout.category] && (
+        <div style={{ marginBottom: 10 }}>
+          {STRETCH_HINTS[workout.category].map((hint, i) => (
+            <div key={i} style={{ padding: "6px 12px", fontSize: 13, color: "var(--text-secondary)", display: "flex", gap: 8, alignItems: "center" }}>
+              <span style={{ color: "var(--green, #4CAF50)", fontWeight: 700 }}>{"\u2022"}</span>
+              <span>{hint}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <button className="complete-button" onClick={onComplete}>Complete workout</button>
       <button className="skip-button" onClick={onSkip}>Skip this workout</button>
       <button className="edit-exercises-button" onClick={onEditExercises}>Edit exercises</button>
@@ -1359,8 +1435,10 @@ function HistoryView({ history, workouts }) {
 }
 
 /* ===== WORKOUTS TAB ===== */
-function WorkoutsView({ workouts, onMoveWorkout, onOpenWorkout, onAddWorkout, onOpenDeleteModal, lockedWorkouts, onToggleLock, onRemix }) {
+function WorkoutsView({ workouts, onMoveWorkout, onOpenWorkout, onAddWorkout, onOpenDeleteModal, lockedWorkouts, onToggleLock, onRemix, onRenameWorkout }) {
   const [remixConfirm, setRemixConfirm] = useState(false);
+  const [renamingId, setRenamingId] = useState(null);
+  const [renameDraft, setRenameDraft] = useState("");
 
   const handleRemix = () => {
     if (!remixConfirm) { setRemixConfirm(true); return; }
@@ -1384,10 +1462,26 @@ function WorkoutsView({ workouts, onMoveWorkout, onOpenWorkout, onAddWorkout, on
             <div className="manage-row" key={item.id}>
               <div className={`manage-cat-strip ${item.category || ""}`} />
               <div className="manage-info">
-                <div className="manage-name">
-                  {isLocked && <span title="Locked from remix" style={{ marginRight: 4 }}>{"\uD83D\uDD12"}</span>}
-                  {item.name}
-                </div>
+                {renamingId === item.id ? (
+                  <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                    <input
+                      className="rename-input"
+                      autoFocus
+                      value={renameDraft}
+                      onChange={(e) => setRenameDraft(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") { if (renameDraft.trim()) onRenameWorkout(item.id, renameDraft.trim()); setRenamingId(null); }
+                        if (e.key === "Escape") setRenamingId(null);
+                      }}
+                    />
+                    <button className="small-btn" onClick={() => { if (renameDraft.trim()) onRenameWorkout(item.id, renameDraft.trim()); setRenamingId(null); }}>✓</button>
+                  </div>
+                ) : (
+                  <div className="manage-name" onClick={() => { setRenameDraft(item.name); setRenamingId(item.id); }} style={{ cursor: "pointer" }}>
+                    {isLocked && <span title="Locked from remix" style={{ marginRight: 4 }}>{"\uD83D\uDD12"}</span>}
+                    {item.name} <span className="edit-hint">✎</span>
+                  </div>
+                )}
                 <div className="manage-meta">
                   <span>{item.focus}</span>
                   <span className={`cat-badge ${item.category || ""}`}>{(item.category || "").toUpperCase()}</span>

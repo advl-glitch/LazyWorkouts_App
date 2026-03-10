@@ -723,6 +723,28 @@ body {
   font-weight: 600;
 }
 
+.edit-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  opacity: 0.5;
+  margin-left: 4px;
+}
+.editable-title { cursor: pointer; }
+.editable-title:hover .edit-hint,
+.manage-name:hover .edit-hint { opacity: 1; }
+
+.rename-input {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1.5px solid var(--accent);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 600;
+  outline: none;
+}
+
 .manage-meta {
   font-size: 12px;
   color: var(--text-muted);
