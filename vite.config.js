@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/LazyWorkouts_App/',
+  base: process.env.VERCEL ? '/' : '/LazyWorkouts_App/',
 })
