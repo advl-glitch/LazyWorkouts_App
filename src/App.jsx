@@ -1515,11 +1515,47 @@ function ExerciseLibraryView({ exerciseOptions, onBack, onEditExercise, onDelete
 function ExerciseGifPreview({ exerciseName }) {
   const { gifUrl, loading, load } = useExerciseGif(exerciseName);
   const [show, setShow] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [customGif, setCustomGif] = useState(null);
 
   const handleToggle = () => {
     if (!show) { load(); setShow(true); }
     else setShow(false);
   };
+
+  const handleSearch = () => {
+    const term = searchTerm.trim();
+    if (!term) return;
+    setSearching(true);
+    fetch(`https://exercisedb-api.vercel.app/api/v1/exercises?search=${encodeURIComponent(term)}&limit=5`)
+      .then(r => r.json())
+      .then(json => {
+        const results = json.data || [];
+        if (results.length > 0 && results[0].gifUrl) {
+          const url = results[0].gifUrl;
+          setCustomGif(url);
+          saveGifCache(exerciseName.replace(/\s*\d+[\u00d7x×]\s*\d+[-\u2013]\d+.*$/i, "")
+            .replace(/\s*@\s*\d+.*$/i, "").replace(/\s*3[\u00d7x×]\s*$/i, "")
+            .replace(/\s*\(.*\)\s*$/g, "").trim(), url);
+        }
+        setSearching(false);
+        setShowSearch(false);
+        setSearchTerm("");
+      })
+      .catch(() => setSearching(false));
+  };
+
+  const handleDismiss = () => {
+    saveGifCache(exerciseName.replace(/\s*\d+[\u00d7x×]\s*\d+[-\u2013]\d+.*$/i, "")
+      .replace(/\s*@\s*\d+.*$/i, "").replace(/\s*3[\u00d7x×]\s*$/i, "")
+      .replace(/\s*\(.*\)\s*$/g, "").trim(), null);
+    setShow(false);
+    setCustomGif(null);
+  };
+
+  const displayGif = customGif || gifUrl;
 
   return (
     <div style={{ marginBottom: 8 }}>
@@ -1529,13 +1565,52 @@ function ExerciseGifPreview({ exerciseName }) {
       {show && (
         <div style={{ marginTop: 8 }}>
           {loading && <div style={{ textAlign: "center", padding: 16, color: "var(--text-muted)", fontSize: 13 }}>Loading...</div>}
-          {gifUrl && (
-            <div className="media-preview-box" style={{ height: "auto", maxHeight: 280 }}>
-              <img src={gifUrl} alt={`${exerciseName} demo`} style={{ width: "100%", borderRadius: 12 }} />
+          {displayGif && (
+            <>
+              <div style={{ borderRadius: 14, border: "1px solid var(--border)", overflow: "hidden", background: "var(--input-bg)" }}>
+                <img src={displayGif} alt={`${exerciseName} demo`} style={{ width: "100%", display: "block" }} />
+              </div>
+              <div style={{ display: "flex", gap: 8, marginTop: 6 }}>
+                <button
+                  className="visual-button"
+                  style={{ marginTop: 0, flex: 1, fontSize: 12, padding: "8px 10px", color: "var(--accent)" }}
+                  onClick={() => setShowSearch(p => !p)}
+                >Wrong exercise? Search again</button>
+                <button
+                  className="visual-button"
+                  style={{ marginTop: 0, flex: 0, fontSize: 12, padding: "8px 10px", color: "var(--danger)" }}
+                  onClick={handleDismiss}
+                >Dismiss</button>
+              </div>
+            </>
+          )}
+          {!loading && !displayGif && (
+            <div style={{ textAlign: "center", padding: 12 }}>
+              <div style={{ color: "var(--text-faint)", fontSize: 13, marginBottom: 8 }}>No demo found for this exercise</div>
+              <button
+                className="visual-button"
+                style={{ marginTop: 0, fontSize: 12, color: "var(--accent)" }}
+                onClick={() => setShowSearch(p => !p)}
+              >Search manually</button>
             </div>
           )}
-          {!loading && !gifUrl && (
-            <div style={{ textAlign: "center", padding: 12, color: "var(--text-faint)", fontSize: 13 }}>No demo found for this exercise</div>
+          {showSearch && (
+            <div style={{ marginTop: 8, display: "flex", gap: 6 }}>
+              <input
+                className="modal-input"
+                style={{ flex: 1, fontSize: 13, padding: "10px 12px" }}
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                placeholder="e.g. bicep curl, lat pulldown"
+                onKeyDown={e => e.key === "Enter" && handleSearch()}
+              />
+              <button
+                className="small-btn"
+                style={{ padding: "10px 14px", background: "var(--accent)", color: "#fff", fontWeight: 700, borderRadius: 12 }}
+                onClick={handleSearch}
+                disabled={searching}
+              >{searching ? "..." : "Go"}</button>
+            </div>
           )}
         </div>
       )}
