@@ -110,11 +110,11 @@ const WORKOUT_DAYS = [
     focus: "Legs",
     category: "legs",
     exercises: [
-      "Lunges 8\u201310 (10lbs each)",
-      "Romanian deadlift 8\u201310 (35lbs)",
-      "Leg extensions 12\u201315 (70lbs)",
-      "Seated leg curls 10\u201312 (100lbs)",
-      "Calf press 12\u201315",
+      "Lunges",
+      "Romanian deadlifts",
+      "Leg extensions",
+      "Seated leg curls",
+      "Calf press",
     ],
   },
   {
@@ -123,12 +123,12 @@ const WORKOUT_DAYS = [
     focus: "Upper push",
     category: "push",
     exercises: [
-      "Incline DB press 3\u00d7 8\u201310",
-      "Chest flys 3\u00d7 10\u201312",
-      "Shoulder press 3\u00d7 8\u201310",
-      "Lat raise 3\u00d7 10\u201312",
-      "Dips / pushdowns 3\u00d7 10\u201312",
-      "Overhead tricep extension 3\u00d7 10\u201312",
+      "Incline DB press",
+      "Chest flys",
+      "Shoulder press",
+      "Lateral raises",
+      "Dips / pushdowns",
+      "Overhead tricep extension",
     ],
   },
   {
@@ -137,12 +137,12 @@ const WORKOUT_DAYS = [
     focus: "Back, biceps, core",
     category: "pull",
     exercises: [
-      "Chest supported rows 3\u00d7 8\u201310",
-      "Lat pulldowns 3\u00d7 10\u201312",
-      "Seated curls 3\u00d7 10\u201312",
-      "Reverse curls 3\u00d7 12\u201315",
-      "Vertical knee raise 3\u00d7",
-      "Back extensions 3\u00d7 10\u201312",
+      "Chest supported rows",
+      "Lat pulldowns",
+      "Seated curls",
+      "Reverse curls",
+      "Vertical knee raise",
+      "Back extensions",
     ],
   },
   {
@@ -151,11 +151,11 @@ const WORKOUT_DAYS = [
     focus: "Bench-focused push",
     category: "push",
     exercises: [
-      "Bench press @ 85lb",
-      "Chest flys @ 75lb",
-      "Lat raises @ 10lb",
-      "Shoulder press @ 50lb",
-      "Tricep extensions @ 30lb",
+      "Bench press",
+      "Chest flys",
+      "Lateral raises",
+      "Shoulder press",
+      "Tricep extensions",
     ],
   },
   {
@@ -164,10 +164,10 @@ const WORKOUT_DAYS = [
     focus: "Pull variation",
     category: "pull",
     exercises: [
-      "Chest supported rows @ 40lb per",
-      "Lat pulldowns @ 110lb",
-      "Seated curls @ 15lb per arm",
-      "Reverse curls @ 40lb",
+      "Chest supported rows",
+      "Lat pulldowns",
+      "Seated curls",
+      "Reverse curls",
       "Back extensions",
     ],
   },
@@ -177,10 +177,10 @@ const WORKOUT_DAYS = [
     focus: "Machine push",
     category: "push",
     exercises: [
-      "Bench press machine @ 65lb",
-      "Machine flys @ 60lb",
-      "Shoulder press @ 45lb",
-      "Lat raise @ 10lb",
+      "Bench press machine",
+      "Machine flys",
+      "Shoulder press",
+      "Lateral raises",
     ],
   },
   {
@@ -189,12 +189,12 @@ const WORKOUT_DAYS = [
     focus: "Legs",
     category: "legs",
     exercises: [
-      "Lunges 8\u201310 @ 10lbs per",
-      "Romanian deadlifts @ 20lb per",
-      "Leg extensions @ 80lb",
-      "Seated leg curls @ 90lb",
-      "Calf press @ 70lb",
-      "Ab crunch machine @ 25lb",
+      "Lunges",
+      "Romanian deadlifts",
+      "Leg extensions",
+      "Seated leg curls",
+      "Calf press",
+      "Ab crunch machine",
     ],
   },
   {
@@ -203,12 +203,12 @@ const WORKOUT_DAYS = [
     focus: "Back, biceps, core",
     category: "pull",
     exercises: [
-      "Chest supported rows @ 45lb",
-      "Lat pulldowns @ 110lb",
-      "Seated curls @ 20lb per bell",
-      "Reverse curls @ 40lb (hard)",
-      "Back extensions 10\u201312 @ 25lb",
-      "Torso rotations 12\u201315 @ 65lb",
+      "Chest supported rows",
+      "Lat pulldowns",
+      "Seated curls",
+      "Reverse curls",
+      "Back extensions",
+      "Torso rotations",
     ],
   },
   {
@@ -217,11 +217,11 @@ const WORKOUT_DAYS = [
     focus: "Push variation",
     category: "push",
     exercises: [
-      "Incline bench press 20lb / arm",
-      "Machine chest press @ 25lb",
-      "Shoulder press @ 45lb",
-      "Lat raise @ 10lb",
-      "Tricep extension @ 25lb",
+      "Incline bench press",
+      "Machine chest press",
+      "Shoulder press",
+      "Lateral raises",
+      "Tricep extensions",
     ],
   },
   {
@@ -230,12 +230,12 @@ const WORKOUT_DAYS = [
     focus: "Legs + bands",
     category: "legs",
     exercises: [
-      "Banded side steps 3\u00d7 7 (ankle)",
-      "Calf press / tibia raise @ 70lb",
-      "Leg extensions @ 110lb",
-      "Seated leg curls @ 85lb",
+      "Banded side steps",
+      "Calf press / tibia raise",
+      "Leg extensions",
+      "Seated leg curls",
       "Captain\u2019s choice",
-      "Ab crunch machine @ 25lb",
+      "Ab crunch machine",
     ],
   },
   {
@@ -244,11 +244,11 @@ const WORKOUT_DAYS = [
     focus: "Back, biceps, core",
     category: "pull",
     exercises: [
-      "Chest supported rows @ 45lb per",
-      "Assisted chin-up @ 85lb",
-      "Seated curls 12 @ 20lb",
-      "Reverse curls 15 @ 30lb",
-      "Back extensions 12 @ 10lb",
+      "Chest supported rows",
+      "Assisted chin-up",
+      "Seated curls",
+      "Reverse curls",
+      "Back extensions",
     ],
   },
 ];
@@ -694,6 +694,8 @@ export default function App() {
     });
     clearLastSessionFor(currentWorkout.id);
     setCurrentIndex((prev) => orderedWorkouts.length ? (prev + 1) % orderedWorkouts.length : prev);
+    setActiveScreen("tab");
+    setTab("home");
   }
 
   function skipWorkout() {
@@ -956,6 +958,62 @@ export default function App() {
     setLibraryExercises((prev) => prev.filter((e) => e.name !== target));
   }
 
+  function deleteHistoryEntry(index) {
+    setHistory((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function clearAllHistory() {
+    setHistory([]);
+  }
+
+  function renameExerciseEverywhere(oldName, newName) {
+    const clean = (newName || "").trim();
+    if (!clean || clean === oldName) return;
+    // Update libraryExercises
+    setLibraryExercises((prev) => prev.map((e) => e.name === oldName ? { ...e, name: clean } : e));
+    // Update extraExercises
+    setExtraExercises((prev) => {
+      const copy = {};
+      Object.entries(prev).forEach(([wid, list]) => {
+        copy[wid] = list.map((n) => n === oldName ? clean : n);
+      });
+      return copy;
+    });
+    // For base workout exercises that match, remove old + add new
+    baseWorkouts.forEach((w) => {
+      if ((w.exercises || []).includes(oldName)) {
+        setRemovedExercises((prev) => {
+          const list = prev[w.id] || [];
+          if (list.includes(oldName)) return prev;
+          return { ...prev, [w.id]: [...list, oldName] };
+        });
+        setExtraExercises((prev) => {
+          const list = prev[w.id] || [];
+          if (list.includes(clean)) return prev;
+          return { ...prev, [w.id]: [...list, clean] };
+        });
+      }
+    });
+    // Migrate keyed data (workoutId::oldName → workoutId::newName)
+    const migrateKeys = (obj) => {
+      const res = {};
+      Object.entries(obj).forEach(([key, value]) => {
+        const parts = key.split("::");
+        if (parts[1] === oldName) {
+          res[`${parts[0]}::${clean}`] = value;
+        } else {
+          res[key] = value;
+        }
+      });
+      return res;
+    };
+    setExerciseMeta((prev) => migrateKeys(prev));
+    setExerciseProgress((prev) => migrateKeys(prev));
+    setExerciseLabels((prev) => migrateKeys(prev));
+    setExerciseMedia((prev) => migrateKeys(prev));
+    setExerciseChecked((prev) => migrateKeys(prev));
+  }
+
   const onGoToWorkouts = () => { setTab("workouts"); setActiveScreen("tab"); };
   const onPickCategory = (cat) => setCategoryPicker(cat);
 
@@ -998,6 +1056,7 @@ export default function App() {
           onBack={() => { setActiveScreen("tab"); setTab("home"); }}
           onEditExercise={(name) => setLibraryEditName(name)}
           onDeleteExercise={(name) => setLibraryDeleteName(name)}
+          onRenameExercise={renameExerciseEverywhere}
         />
       ) : tab === "home" ? (
         <HomeView
@@ -1009,7 +1068,7 @@ export default function App() {
           history={history}
         />
       ) : tab === "history" ? (
-        <HistoryView history={history} workouts={orderedWorkouts} />
+        <HistoryView history={history} workouts={orderedWorkouts} onDeleteOne={deleteHistoryEntry} onDeleteAll={clearAllHistory} />
       ) : (
         <WorkoutsView
           workouts={orderedWorkouts} onMoveWorkout={moveWorkout} onOpenWorkout={jumpToWorkout}
@@ -1378,7 +1437,9 @@ function TodayView({ workout, onComplete, onSkip, exerciseChecked, onToggleExerc
 }
 
 /* ===== HISTORY ===== */
-function HistoryView({ history, workouts }) {
+function HistoryView({ history, workouts, onDeleteOne, onDeleteAll }) {
+  const [confirmClearAll, setConfirmClearAll] = useState(false);
+
   const getCategory = (item) => {
     const w = workouts.find(w => w.id === item.workoutId);
     return w ? w.category : "";
@@ -1420,10 +1481,27 @@ function HistoryView({ history, workouts }) {
                 <div className="history-date">{formatDate(item.date)}</div>
               </div>
               {cat && <span className={`cat-badge ${cat}`}>{cat}</span>}
+              <button
+                className="small-btn-outline"
+                style={{ borderColor: "#B3261E", color: "#B3261E", marginLeft: 8, padding: "4px 8px", fontSize: 11 }}
+                onClick={() => onDeleteOne(index)}
+              >{"\u2715"}</button>
             </div>
           );
         })}
       </div>
+      <button
+        className={`modal-button ${confirmClearAll ? "danger" : ""}`}
+        style={{ marginTop: 12 }}
+        onClick={() => {
+          if (!confirmClearAll) { setConfirmClearAll(true); return; }
+          onDeleteAll();
+          setConfirmClearAll(false);
+        }}
+      >{confirmClearAll ? "Confirm: clear all history" : "Clear all history"}</button>
+      {confirmClearAll && (
+        <button className="modal-button cancel" style={{ marginTop: 6 }} onClick={() => setConfirmClearAll(false)}>Cancel</button>
+      )}
     </div>
   );
 }
@@ -1515,12 +1593,28 @@ function WorkoutsView({ workouts, onMoveWorkout, onOpenWorkout, onAddWorkout, on
 }
 
 /* ===== EXERCISE LIBRARY ===== */
-function ExerciseLibraryView({ exerciseOptions, onBack, onEditExercise, onDeleteExercise }) {
+function ExerciseLibraryView({ exerciseOptions, onBack, onEditExercise, onDeleteExercise, onRenameExercise }) {
+  const [renamingName, setRenamingName] = useState(null);
+  const [renameDraft, setRenameDraft] = useState("");
+
+  const handleStartRename = (name) => {
+    setRenameDraft(name);
+    setRenamingName(name);
+  };
+
+  const handleConfirmRename = () => {
+    const clean = renameDraft.trim();
+    if (clean && clean !== renamingName) {
+      onRenameExercise(renamingName, clean);
+    }
+    setRenamingName(null);
+  };
+
   return (
     <div className="card">
       <div className="workout-header-row"><button className="back-button" onClick={onBack}>&larr; Back</button></div>
       <div className="title">Exercise library</div>
-      <div className="subtitle">View and tag all saved exercises so filters stay smart.</div>
+      <div className="subtitle">Tap a name to rename. Use buttons to edit tags or delete.</div>
       <div className="card-scroll">
         {exerciseOptions.length === 0 ? (
           <div className="subtitle">No exercises yet.</div>
@@ -1528,7 +1622,26 @@ function ExerciseLibraryView({ exerciseOptions, onBack, onEditExercise, onDelete
           exerciseOptions.map((item) => (
             <div className="library-row" key={item.name}>
               <div style={{ flex: 1 }}>
-                <div className="manage-name">{item.name}</div>
+                {renamingName === item.name ? (
+                  <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                    <input
+                      className="rename-input"
+                      autoFocus
+                      value={renameDraft}
+                      onChange={(e) => setRenameDraft(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") handleConfirmRename();
+                        if (e.key === "Escape") setRenamingName(null);
+                      }}
+                    />
+                    <button className="small-btn" onClick={handleConfirmRename}>{"\u2713"}</button>
+                    <button className="small-btn" onClick={() => setRenamingName(null)}>{"\u2715"}</button>
+                  </div>
+                ) : (
+                  <div className="manage-name" onClick={() => handleStartRename(item.name)} style={{ cursor: "pointer" }}>
+                    {item.name} <span className="edit-hint">{"\u270E"}</span>
+                  </div>
+                )}
                 <div className="manage-meta">
                   {(item.category || "uncategorized").toUpperCase()} {"\u2022"} {item.type === "isolation" ? "Isolation" : "Compound"}
                 </div>
